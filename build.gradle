@@ -1,17 +1,27 @@
 plugins {
+    id 'java'
     id 'groovy'
 }
 
-group 'com.deploy'
-version '0.0.1'
+apply from: 'gradleInit/version.gradle'
+apply from: 'gradleInit/repo.gradle'
 
-repositories {
-    mavenLocal()
+group 'com.deploy'
+version "${projectVersion}"
+
+sourceCompatibility = "${javaVersion}"
+targetCompatibility = "${javaVersion}"
+
+tasks.withType(JavaCompile) {
+    options.encoding = "${encoding}"
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    compileOnly "org.apache.groovy:groovy:${dv.groovy}"
+
+    testImplementation "com.lesfurets:jenkins-pipeline-unit:${dv.jenkinsPipelineUnit}"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${dv.junit}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${dv.junit}"
 }
 
 test {

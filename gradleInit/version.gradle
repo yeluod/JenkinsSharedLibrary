@@ -1,0 +1,18 @@
+import javax.sound.sampled.AudioFormat
+
+ext {
+
+    projectVersion = '0.0.1'
+
+    javaVersion = JavaVersion.VERSION_11
+
+    encoding = 'UTF-8'
+
+    // Dependencies Version
+    dv = [
+            'groovy' : '4.0.6',
+            'jenkinsPipelineUnit' : '1.9',
+            'junit' : '5.9.0'
+    ]
+
+}
