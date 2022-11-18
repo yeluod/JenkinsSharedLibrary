@@ -1,0 +1,6 @@
+# .gitignore
+.idea
+.gradle
+
+/out/
+/build/
