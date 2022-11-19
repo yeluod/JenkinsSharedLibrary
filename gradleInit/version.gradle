@@ -1,5 +1,3 @@
-import javax.sound.sampled.AudioFormat
-
 ext {
 
     projectVersion = '0.0.1'

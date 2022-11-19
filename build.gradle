@@ -1,13 +1,31 @@
 plugins {
-    id 'java'
     id 'groovy'
 }
 
+configurations {
+    integTestCompile.extendsFrom testCompile
+    integTestRuntime.extendsFrom testRuntime
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        maven { name "alibaba"; url "https://maven.aliyun.com/repository/public" }
+        maven { name "jenkins-ci"; url 'https://repo.jenkins-ci.org/releases/' }
+        mavenCentral()
+    }
+    buildscript {
+        repositories {
+            maven { name "alibaba"; url 'https://maven.aliyun.com/repository/public' }
+        }
+    }
+}
+
 apply from: 'gradleInit/version.gradle'
-apply from: 'gradleInit/repo.gradle'
 
 group 'com.deploy'
 version "${projectVersion}"
+description 'JenkinsSharedLibrary'
 
 sourceCompatibility = "${javaVersion}"
 targetCompatibility = "${javaVersion}"
@@ -17,7 +35,7 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    compileOnly "org.apache.groovy:groovy:${dv.groovy}"
+    implementation "org.apache.groovy:groovy:${dv.groovy}"
 
     testImplementation "com.lesfurets:jenkins-pipeline-unit:${dv.jenkinsPipelineUnit}"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${dv.junit}"
@@ -26,4 +44,20 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['src', 'vars']
+        }
+        resources {
+            srcDirs = ['resources']
+        }
+    }
+    test {
+        groovy {
+            srcDirs = ['test']
+        }
+    }
 }
