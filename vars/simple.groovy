@@ -1,5 +1,3 @@
-import com.deploy.helper.GitHelper
-
 /**
  * simple
  *
@@ -8,9 +6,7 @@ import com.deploy.helper.GitHelper
  * */
 def call(String msg) {
 
-    def gitHelper = new GitHelper(this, '/usr/bin/git')
-    println('-------------------')
-    gitHelper.version()
+    readTools()
 
     pipeline {
         agent any
@@ -31,4 +27,12 @@ def call(String msg) {
             }
         }
     }
+}
+
+/**
+ * readTools
+ */
+def readTools() {
+    String config = libraryResource('global/config.json')
+    println(config)
 }

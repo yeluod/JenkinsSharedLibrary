@@ -8,17 +8,8 @@ package com.deploy.helper
  * */
 class GitHelper {
 
-    def script
-    def git
-
-    GitHelper(def script, String gitPath) {
-        this.script = script
-        this.git = gitPath
-        this.version()
-    }
-
-    void version(){
-        this.script.sh """
+    static void version(def script){
+        script.sh """
             ${git} --version
         """
     }
