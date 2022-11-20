@@ -34,5 +34,6 @@ def call(String msg) {
 def readTools() {
     String config = libraryResource('global/config.json')
     GlobalTool globalTool = GsonUtil.toBean(config, GlobalTool.class)
-    println(globalTool.toString())
+    println(globalTool.git)
+    println(globalTool.java)
 }
