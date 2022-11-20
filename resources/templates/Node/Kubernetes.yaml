@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: NAMESPACE_NAME
+  labels:
+    app: DEPLOYMENT_NAME
+  name: DEPLOYMENT_NAME
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: DEPLOYMENT_NAME
+  template:
+    metadata:
+      labels:
+        app: DEPLOYMENT_NAME
+        time: CURRENT_TIME
+    spec:
+      serviceAccount: default
+      volumes:
+        - hostPath:
+            path: /etc/localtime
+            type: ''
+          name: host-time
+      initContainers: []
+      containers:
+        - name: DEPLOYMENT_NAME
+          imagePullPolicy: Always
+          image: 'IMAGES_TAG'
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          ports:
+            - name: http-80
+              protocol: TCP
+              containerPort: 80
+          volumeMounts:
+            - name: host-time
+              mountPath: /etc/localtime
+              readOnly: true
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
