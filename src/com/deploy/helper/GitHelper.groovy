@@ -8,10 +8,10 @@ package com.deploy.helper
  * */
 class GitHelper {
 
-    private final def script
-    private final def git
+    def script
+    def git
 
-    GitHelper(Object script, String gitPath) {
+    GitHelper(def script, String gitPath) {
         this.script = script
         this.git = gitPath
         this.version()

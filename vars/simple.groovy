@@ -32,7 +32,3 @@ def call(String msg) {
         }
     }
 }
-
-def readResources() {
-
-}
