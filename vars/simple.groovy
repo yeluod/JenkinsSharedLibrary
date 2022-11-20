@@ -4,7 +4,9 @@
  * @author YeLuo
  * @since 2022/11/19
  * */
-def call() {
+def call(String msg) {
+
+    println "${msg}"
 
     pipeline {
         agent any
@@ -12,7 +14,7 @@ def call() {
         stages {
             stage('Hello') {
                 steps {
-                    echo 'Hello World'
+                    echo "${msg}"
                 }
             }
         }
