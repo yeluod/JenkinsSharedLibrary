@@ -13,13 +13,15 @@ import org.junit.jupiter.api.Test
  * */
 class AssertTests {
 
+    private static final def ERROR_MSG = 'assert error'
+
     @Test
     void isBooleanTest() {
         Assertions.assertAll(
                 () -> Assertions.assertThrows(IllegalArgumentException.class,
-                        () -> Assert.isTrue(Boolean.FALSE, 'error')),
+                        () -> Assert.isTrue(Boolean.FALSE, ERROR_MSG)),
                 () -> Assertions.assertThrows(IllegalArgumentException.class,
-                        () -> Assert.isFalse(Boolean.TRUE, 'error')),
+                        () -> Assert.isFalse(Boolean.TRUE, ERROR_MSG)),
         )
     }
 
@@ -27,11 +29,11 @@ class AssertTests {
     void isEmptyTest() {
         Assertions.assertAll(
                 () -> Assertions.assertThrows(IllegalArgumentException.class,
-                        () -> Assert.isEmpty('1111', 'error')),
+                        () -> Assert.isEmpty('1111', ERROR_MSG)),
                 () -> Assertions.assertThrows(IllegalArgumentException.class,
-                        () -> Assert.isEmpty(Arrays.asList(1, 2, 3), 'error')),
+                        () -> Assert.isEmpty(Arrays.asList(1, 2, 3), ERROR_MSG)),
                 () -> Assertions.assertThrows(IllegalArgumentException.class,
-                        () -> Assert.isEmpty(Maps.newHashMap('key', 'value'), 'error')),
+                        () -> Assert.isEmpty(Maps.newHashMap('key', 'value'), ERROR_MSG)),
         )
     }
 
@@ -39,13 +41,13 @@ class AssertTests {
     void isNotEmptyTest() {
         Assertions.assertAll(
                 () -> Assertions.assertThrows(IllegalArgumentException.class,
-                        () -> Assert.isNotEmpty(null, 'error')),
+                        () -> Assert.isNotEmpty(null, ERROR_MSG)),
                 () -> Assertions.assertThrows(IllegalArgumentException.class,
-                        () -> Assert.isNotEmpty('', 'error')),
+                        () -> Assert.isNotEmpty('', ERROR_MSG)),
                 () -> Assertions.assertThrows(IllegalArgumentException.class,
-                        () -> Assert.isNotEmpty(new ArrayList(), 'error')),
+                        () -> Assert.isNotEmpty(new ArrayList(), ERROR_MSG)),
                 () -> Assertions.assertThrows(IllegalArgumentException.class,
-                        () -> Assert.isNotEmpty(new HashMap(), 'error')),
+                        () -> Assert.isNotEmpty(new HashMap(), ERROR_MSG)),
         )
     }
 }
