@@ -6,8 +6,6 @@
  * */
 def call(String msg) {
 
-    println "${msg}"
-
     pipeline {
         agent any
 
