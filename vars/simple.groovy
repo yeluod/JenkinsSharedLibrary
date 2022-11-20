@@ -1,9 +1,8 @@
-/**
- * simple
- *
- * @author YeLuo
- * @since 2022/11/19
- * */
+import com.deploy.tools.GlobalTool
+import com.deploy.utils.GsonUtil
+
+@Grab('com.google.code.gson:gson:2.10')
+
 def call(String msg) {
 
     readTools()
@@ -34,5 +33,6 @@ def call(String msg) {
  */
 def readTools() {
     String config = libraryResource('global/config.json')
-    println(config)
+    GlobalTool globalTool = GsonUtil.toBean(config, GlobalTool.class)
+    println(globalTool.toString())
 }
