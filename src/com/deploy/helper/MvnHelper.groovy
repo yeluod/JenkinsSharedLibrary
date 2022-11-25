@@ -1,6 +1,6 @@
 package com.deploy.helper
 
-import com.deploy.tools.Tools
+import com.deploy.property.Tools
 
 /**
  * MvnHelper

@@ -2,7 +2,8 @@ import com.deploy.helper.DockerHelper
 import com.deploy.helper.MvnHelper
 import com.deploy.helper.NpmHelper
 import com.deploy.helper.YarnHelper
-import com.deploy.tools.Tools
+import com.deploy.property.Credentials
+import com.deploy.property.Tools
 import com.deploy.helper.GitHelper
 import com.deploy.helper.JavaHelper
 
@@ -12,7 +13,8 @@ def call() {
 
     /************************************************/
     def tools = Tools.read(this)
-    def gitHelper = new GitHelper(this, tools)
+    def credentials = Credentials.read(this)
+    def gitHelper = new GitHelper(this, tools, credentials)
     def javaHelper =  new JavaHelper(this, tools)
     def mvnHelper =  new MvnHelper(this, tools)
     def npmHelper =  new NpmHelper(this, tools)
@@ -39,7 +41,7 @@ def call() {
             stage('CheckOut') {
                 steps {
                     script {
-                        gitHelper.checkOut(null, null, null)
+                        gitHelper.checkOut("null/dev/dev", "http://10.72.3.205:3000/sogal_it_dept/sogal-ids.git")
                     }
                 }
             }

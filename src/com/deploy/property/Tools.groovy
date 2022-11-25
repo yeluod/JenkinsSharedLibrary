@@ -1,4 +1,4 @@
-package com.deploy.tools
+package com.deploy.property
 
 import com.deploy.utils.GsonUtil
 
@@ -18,7 +18,7 @@ class Tools {
     def docker
 
     static def read(script) {
-        String json = script.libraryResource('global/tools.json')
+        String json = script.libraryResource('property/tools.json')
         GsonUtil.toBean(json, Tools.class)
     }
 }
