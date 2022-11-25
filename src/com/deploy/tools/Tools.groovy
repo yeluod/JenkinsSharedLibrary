@@ -11,6 +11,7 @@ import com.deploy.utils.GsonUtil
 class Tools {
 
     def git
+    def java
 
     static def read(script) {
         String json = script.libraryResource('global/config.json')

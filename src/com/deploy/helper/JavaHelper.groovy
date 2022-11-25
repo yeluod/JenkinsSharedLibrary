@@ -8,25 +8,25 @@ import com.deploy.tools.Tools
  * @author YeLuo
  * @since 2022/11/20
  * */
-class GitHelper extends BaseHelper {
+class JavaHelper extends BaseHelper {
 
     def script
-    def git
+    def java
 
-    GitHelper(script) {
+    JavaHelper(script) {
         this.script = script
     }
 
     @Override
     def init(Tools tools) {
-        this.git = tools.git
+        this.java = tools.java
         this
     }
 
     @Override
     void version() {
         this.script.sh """
-            ${this.git} --version 
+            ${this.java} --version 
         """
     }
 }
