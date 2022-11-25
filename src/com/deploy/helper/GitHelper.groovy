@@ -10,8 +10,10 @@ class GitHelper extends BaseHelper{
 
     def git
 
-    void version(){
-        println '123123'
+    def version(){
+        sh """
+            /use/bin/git --version
+        """
     }
 
 }
