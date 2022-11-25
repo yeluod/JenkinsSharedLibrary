@@ -18,7 +18,7 @@ class GitHelper extends BaseHelper{
 
     @Override
     def init() {
-        this.script.sh """
+        sh """
             echo hello
         """
     }
