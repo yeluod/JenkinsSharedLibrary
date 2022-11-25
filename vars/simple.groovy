@@ -1,3 +1,5 @@
+import com.deploy.helper.GitHelper
+
 @Grab('com.google.code.gson:gson:2.10')
 
 def call(String msg) {
@@ -8,9 +10,10 @@ def call(String msg) {
         stages {
             stage('Init') {
                 steps {
-                    sh """
-                        cd /work/tools && pwd
-                    """
+                    script {
+                        def helper = new GitHelper(this)
+                        println helper
+                    }
                 }
             }
         }
