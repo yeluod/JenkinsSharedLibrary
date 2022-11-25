@@ -2,6 +2,6 @@
   "git": "/usr/bin/git",
   "java": "/usr/bin/java",
   "mvn": "/usr/bin/mvn",
-  "npm": "/root/.nvm/versions/node/v16.18.1/bin/npm",
-  "yarn": "/root/.nvm/versions/node/v16.18.1/bin/yarn"
+  "npm": "/usr/bin/npm",
+  "yarn": "/usr/bin/yarn"
 }

@@ -13,7 +13,7 @@ class MvnHelper extends BaseHelper {
     def script
     def mvn
 
-    JavaHelper(script, Tools tools) {
+    MvnHelper(script, Tools tools) {
         this.script = script
         this.mvn = tools.mvn
     }

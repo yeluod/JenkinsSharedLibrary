@@ -1,3 +1,4 @@
+import com.deploy.helper.MvnHelper
 import com.deploy.helper.NpmHelper
 import com.deploy.helper.YarnHelper
 import com.deploy.tools.Tools
@@ -12,6 +13,7 @@ def call() {
     def tools = Tools.read(this)
     def gitHelper = new GitHelper(this, tools)
     def javaHelper =  new JavaHelper(this, tools)
+    def mvnHelper =  new MvnHelper(this, tools)
     def npmHelper =  new NpmHelper(this, tools)
     def yarnHelper =  new YarnHelper(this, tools)
     /************************************************/
@@ -25,6 +27,7 @@ def call() {
                     script {
                         gitHelper.version()
                         javaHelper.version()
+                        mvnHelper.version()
                         npmHelper.version()
                         yarnHelper.version()
                     }
