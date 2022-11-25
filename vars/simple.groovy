@@ -8,7 +8,10 @@ def call(String msg) {
         stages {
             stage('Init') {
                 steps {
-                    sh 'echo hello'
+                    sh """
+                        cd ~/
+                        pwd
+                    """
                 }
             }
         }
