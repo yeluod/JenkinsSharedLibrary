@@ -9,13 +9,16 @@ package com.deploy.helper
 class GitHelper extends BaseHelper{
 
     def script
+    def git
 
     GitHelper(script) {
         this.script = script
     }
 
     @Override
-    void init() {
-        this.script.println 123123
+    def init() {
+        String config = libraryResource('global/config.json')
+        this.script.println config
+        return this
     }
 }
