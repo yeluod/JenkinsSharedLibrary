@@ -1,13 +1,26 @@
 package com.deploy.helper
 
+import com.deploy.tools.Tools
+
 /**
  * MvnHelper
  *
  * @author YeLuo
  * @since 2022/11/22
  * */
-class MvnHelper {
+class MvnHelper extends BaseHelper {
 
+    def script
+    def mvn
 
+    JavaHelper(script, Tools tools) {
+        this.script = script
+        this.mvn = tools.mvn
+    }
+
+    @Override
+    void version() {
+        this.script.sh "${this.mvn} -v"
+    }
 
 }

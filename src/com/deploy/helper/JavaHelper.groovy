@@ -13,20 +13,13 @@ class JavaHelper extends BaseHelper {
     def script
     def java
 
-    JavaHelper(script) {
+    JavaHelper(script, Tools tools) {
         this.script = script
-    }
-
-    @Override
-    def init(Tools tools) {
         this.java = tools.java
-        this
     }
 
     @Override
     void version() {
-        this.script.sh """
-            ${this.java} --version 
-        """
+        this.script.sh "${this.java} --version"
     }
 }

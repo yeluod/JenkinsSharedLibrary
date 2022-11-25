@@ -6,9 +6,13 @@ import com.deploy.helper.JavaHelper
 
 def call() {
 
+    /************************************************/
     def tools = Tools.read(this)
-    def gitHelper = new GitHelper(this).init(tools)
-    def javaHelper =  new JavaHelper(this).init(tools)
+    def gitHelper = new GitHelper(this, tools)
+    def javaHelper =  new JavaHelper(this, tools)
+    def npmHelper =  new JavaHelper(this, tools)
+    def yarnHelper =  new JavaHelper(this, tools)
+    /************************************************/
 
     pipeline {
         agent any
@@ -19,6 +23,8 @@ def call() {
                     script {
                         gitHelper.version()
                         javaHelper.version()
+                        npmHelper.version()
+                        yarnHelper.version()
                     }
                 }
             }

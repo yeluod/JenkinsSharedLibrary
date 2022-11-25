@@ -12,6 +12,9 @@ class Tools {
 
     def git
     def java
+    def mvn
+    def npm
+    def yarn
 
     static def read(script) {
         String json = script.libraryResource('global/config.json')

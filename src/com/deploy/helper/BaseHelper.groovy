@@ -10,8 +10,6 @@ import com.deploy.tools.Tools
  * */
 abstract class BaseHelper {
 
-    abstract def init(Tools tools)
-
     abstract void version()
 
 

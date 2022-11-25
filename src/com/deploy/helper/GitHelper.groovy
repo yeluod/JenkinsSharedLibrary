@@ -13,20 +13,13 @@ class GitHelper extends BaseHelper {
     def script
     def git
 
-    GitHelper(script) {
+    GitHelper(script, Tools tools) {
         this.script = script
-    }
-
-    @Override
-    def init(Tools tools) {
         this.git = tools.git
-        this
     }
 
     @Override
     void version() {
-        this.script.sh """
-            ${this.git} --version 
-        """
+        this.script.sh "${this.git} --version"
     }
 }

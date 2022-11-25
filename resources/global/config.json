@@ -1,4 +1,7 @@
 {
   "git": "/usr/bin/git",
-  "java": "/usr/bin/java"
+  "java": "/usr/bin/java",
+  "mvn": "/usr/bin/mvn",
+  "npm": "npm",
+  "yarn": "yarn"
 }
