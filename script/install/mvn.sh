@@ -1,16 +1,22 @@
 #!/bin/bash
 
 ## Maven 自动安装脚本
+TAR_URL='https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz'
+WORK_PATH='/work/tool/'
+TAR_NAME='apache-maven-3.8.6-bin.tar.gz'
 
-uninstall() {
-    echo '开始卸载旧版本 maven ......'
-    yum remove -y apache-maven
+downloadBin() {
+    echo '开始下载maven二进制文件 ......'
+    wget "${TAR_URL}" -O "${TAR_NAME}"
 }
 
-before_install() {
-    echo '配置yum源 ......'
-    wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo \
-        -O /etc/yum.repos.d/epel-apache-maven.repo
+mvTar() {
+    mv "${TAR_NAME}" "${WORK_PATH}"
+}
+
+extract() {
+    echo '解压 ......'
+    tar -tar xzvf "${TAR_NAME}"
 }
 
 install() {

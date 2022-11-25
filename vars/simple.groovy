@@ -9,8 +9,7 @@ def call(String msg) {
             stage('Init') {
                 steps {
                     sh """
-                        cd ~/
-                        pwd
+                        cd /work/tools && pwd
                     """
                 }
             }
