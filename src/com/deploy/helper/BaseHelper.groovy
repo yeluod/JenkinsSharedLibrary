@@ -1,5 +1,7 @@
 package com.deploy.helper
 
+import com.deploy.tools.Tools
+
 /**
  * BaseHelper
  *
@@ -8,6 +10,6 @@ package com.deploy.helper
  * */
 abstract class BaseHelper {
 
-    abstract def init()
+    abstract def init(Tools tools)
 
 }

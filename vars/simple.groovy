@@ -1,10 +1,12 @@
 import com.deploy.helper.GitHelper
+import com.deploy.tools.Tools
 
 @Grab('com.google.code.gson:gson:2.10')
 
 def call() {
 
-    def helper = new GitHelper(this)
+    def tools = Tools.read(this)
+    def helper = new GitHelper(this).init(tools)
 
     pipeline {
         agent any
@@ -14,7 +16,7 @@ def call() {
                 steps {
                     script {
                         println helper
-                        helper.init()
+                        helper.version()
                     }
                 }
             }

@@ -1,5 +1,7 @@
 package com.deploy.helper
 
+import com.deploy.tools.Tools
+
 /**
  * GitHelper
  *
@@ -16,9 +18,14 @@ class GitHelper extends BaseHelper{
     }
 
     @Override
-    def init() {
-        String config = this.script.libraryResource('global/config.json')
-        this.script.println config
+    def init(Tools tools) {
+        this.git = tools.git
         return this
+    }
+
+    def version() {
+        this.script.sh """
+            ${this.git} --version 
+        """
     }
 }
