@@ -3,5 +3,6 @@
   "java": "/usr/bin/java",
   "mvn": "/usr/bin/mvn",
   "npm": "/usr/bin/npm",
-  "yarn": "/usr/bin/yarn"
+  "yarn": "/usr/bin/yarn",
+  "docker": "/usr/bin/docker"
 }

@@ -18,7 +18,7 @@ class Tools {
     def docker
 
     static def read(script) {
-        String json = script.libraryResource('global/config.json')
+        String json = script.libraryResource('global/tools.json')
         GsonUtil.toBean(json, Tools.class)
     }
 }
