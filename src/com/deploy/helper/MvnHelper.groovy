@@ -50,6 +50,9 @@ class MvnHelper extends BaseHelper {
         this.script.sh "${this.mvn} -v"
     }
 
+    /**
+     * 写入 maven setting文件
+     */
     void writeSettingXml() {
         this.script.println '开始写入 maven setting.xml ...'
         def xml = this.script.libraryResource('conf/maven/setting.xml')
@@ -57,6 +60,11 @@ class MvnHelper extends BaseHelper {
         writeHelper.tee('.', "${SETTING_XML}", xml)
     }
 
+    /**
+     * 打包 (所有依赖全部打进来)
+     *
+     * @param module {@link String} 模块 groupId OR path
+     */
     void packageWithAllDependency(String module) {
         this.script.sh """
             ${this.mvn} ${CLEAN} ${PACKAGE} ${s} ${pl} ${module} ${SKIP_TEST} ${am}

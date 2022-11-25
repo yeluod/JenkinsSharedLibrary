@@ -16,6 +16,14 @@ class DockerHelper extends BaseHelper {
     static def DOCKERFILE = 'Dockerfile'
     static def DOCKER_IGNORE = '.dockerignore'
 
+    static def BUILD = 'build'
+    static def PUSH = 'push'
+
+    static def f = '-f'
+    static def t = '-t'
+
+
+
     /**
      * 构造函数
      */
@@ -32,6 +40,9 @@ class DockerHelper extends BaseHelper {
         this.script.sh "${this.docker} -v"
     }
 
+    /**
+     * 写入 Dockerfile 文件
+     */
     void writeDockerfile() {
         this.script.println '开始写入 Dockerfile ...'
         def dockerfile = this.script.libraryResource('templates/Springboot/Dockerfile')
@@ -39,6 +50,10 @@ class DockerHelper extends BaseHelper {
         writeHelper.tee('.', "${DOCKERFILE}", dockerfile)
     }
 
+    /**
+     * 写入 dockerignore 文件
+     * 防止 docker build时, Sending build context to Docker daemon 数据过大
+     */
     void writeDockerignore() {
         this.script.println '开始写入 .dockerignore ...'
         def dockerIgnore = this.script.libraryResource('templates/Springboot/.dockerignore')
@@ -46,4 +61,9 @@ class DockerHelper extends BaseHelper {
         writeHelper.tee('.', "${DOCKER_IGNORE}", dockerIgnore)
     }
 
+    void build(String imageName, String imageTag) {
+        this.script.sh """
+            ${this.docker} ${BUILD} ${f} ${DOCKERFILE} ${t} ${imageName}:${imageTag}
+        """
+    }
 }

@@ -86,6 +86,13 @@ def call() {
                     }
                 }
             }
+            stage('DockerBuildAndPush') {
+                steps {
+                    script {
+                        dockerHelper.build('testImage', 'latest')
+                    }
+                }
+            }
         }
     }
 }
