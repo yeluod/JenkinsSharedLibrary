@@ -17,6 +17,6 @@ class GitHelper extends BaseHelper{
 
     @Override
     void init() {
-        println 123123
+        this.script.println 123123
     }
 }
