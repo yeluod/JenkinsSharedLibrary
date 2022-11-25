@@ -1,6 +1,7 @@
 package com.deploy.helper
 
 import com.deploy.tools.Tools
+import com.deploy.utils.Assert
 
 /**
  * GitHelper
@@ -21,5 +22,11 @@ class GitHelper extends BaseHelper {
     @Override
     void version() {
         this.script.sh "${this.git} --version"
+    }
+
+    void checkOut(def branch, def credentials, def repoUrl) {
+        Assert.isNotEmpty(branch, '输入分支为空')
+        Assert.isNotEmpty(credentials, '输入凭证为空')
+        Assert.isNotEmpty(credentials, '输入仓库地址为空')
     }
 }

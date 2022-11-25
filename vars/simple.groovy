@@ -36,6 +36,13 @@ def call() {
                     }
                 }
             }
+            stage('CheckOut') {
+                steps {
+                    script {
+                        gitHelper.checkOut(null, null, null)
+                    }
+                }
+            }
         }
     }
 }

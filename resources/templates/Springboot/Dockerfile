@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM openjdk:8
 
 LABEL developer.name='yeluo' \
       developer.email='yeluo0528@gmail.com' \
@@ -12,8 +12,8 @@ VOLUME /tmp
 ADD *.jar app.jar
 
 ENV TZ=Asia/Shanghai \
+    JAVA_OPTS='-Xms512m -Xmx1024m -Xss256K' \
     RANDOM="-Djava.security.egd=file:/dev/./urandom" \
-    JAVA_OPTS='' \
     ACTIVE="dev"
 
 RUN bash -c 'touch /app.jar'
