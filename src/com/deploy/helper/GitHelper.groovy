@@ -42,13 +42,11 @@ class GitHelper extends BaseHelper {
     }
 
     private static def trimBranch(String branch) {
-        Optional.ofNullable(branch)
-                .filter(item -> item.contains('/'))
-                .map(item -> {
-                    String[] array = item.split('/')
-                    return array[array.length - 1]
-                })
-                .orElse(branch)
+        if (branch.contains('/')) {
+            String[] array = branch.split('/')
+            return array[array.length - 1]
+        }
+        return branch
     }
 
 }
