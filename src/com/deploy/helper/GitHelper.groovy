@@ -16,6 +16,7 @@ class GitHelper extends BaseHelper{
         this.init()
     }
 
+    @NonCPS
     @Override
     def init() {
         sh """
