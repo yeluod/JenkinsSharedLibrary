@@ -59,7 +59,7 @@ class MvnHelper extends BaseHelper {
 
     void packageWithAllDependency(String module) {
         this.script.sh """
-            ${this.mvn} ${CLEAN} ${PACKAGE} ${s} ${pl} ${module} ${SKIP_TEST} ${amd}
+            ${this.mvn} ${CLEAN} ${PACKAGE} ${s} ${pl} ${module} ${SKIP_TEST} ${am}
         """
     }
 
