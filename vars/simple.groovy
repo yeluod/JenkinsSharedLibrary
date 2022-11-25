@@ -45,6 +45,13 @@ def call() {
                     }
                 }
             }
+            stage('WriteSettingXml') {
+                steps {
+                    script {
+                        mvnHelper.writeSettingXml()
+                    }
+                }
+            }
         }
     }
 }

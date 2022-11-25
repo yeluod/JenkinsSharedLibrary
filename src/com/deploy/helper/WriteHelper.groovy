@@ -10,6 +10,9 @@ class WriteHelper {
 
     def script
 
+    /**
+     * 构造函数
+     */
     WriteHelper(script) {
         this.script = script
     }

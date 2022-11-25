@@ -10,6 +10,9 @@ import com.deploy.property.Tools
  * */
 class NpmHelper extends NodeHelper {
 
+    /**
+     * 构造函数
+     */
     NpmHelper(script, Tools tools) {
         super.script = script
         super.tool = tools.npm

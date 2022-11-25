@@ -27,20 +27,50 @@ class GitHelper extends BaseHelper {
         this.script.sh "${this.git} --version"
     }
 
+    /**
+     * 检出分支
+     *
+     * @param repoUrl {@link String} 仓库地址
+     * @param branch {@link String} 分支
+     */
     def checkOut(String repoUrl, String branch) {
-        Assert.isNotEmpty(repoUrl, '输入仓库地址为空')
-        Assert.isNotEmpty(branch, '输入分支为空')
+        checkParams(repoUrl, branch)
         branch = trimBranch(branch)
         this.script.println String.format('当前拉取分支为 -> {%s}', branch)
         this.script.checkout([$class           : 'GitSCM',
-                           gitTool          : 'Default',
-                           branches         : [[name: "*/${branch}"]],
-                           extensions       : [[$class: 'CleanBeforeCheckout']],
-                           userRemoteConfigs: [[credentialsId: "${this.credentialId}",
-                                                url          : "${repoUrl}"]]]
-                )
+                              gitTool          : 'Default',
+                              branches         : [[name: "*/${branch}"]],
+                              extensions       : [[$class: 'CleanBeforeCheckout']],
+                              userRemoteConfigs: [[credentialsId: "${this.credentialId}",
+                                                   url          : "${repoUrl}"]]]
+        )
     }
 
+    /**
+     * 拉取代码
+     *
+     * @param repoUrl {@link String} 仓库地址
+     * @param branch {@link String} 分支
+     */
+    def pullCode(String repoUrl, String branch) {
+        checkParams(repoUrl, branch)
+        this.script.git(
+                branch: "${branch}",
+                credentialsId: "${this.credentialId}",
+                url: "${repoUrl}"
+        )
+    }
+
+    /**
+     * 修建分支
+     *
+     * 由于参数化构建会使用一些三方插件，获取远程分支名称会出现 refs/heads origin
+     *
+     * refs/heads/dev > dev
+     * origin/dev > dev
+     *
+     * @param branch {@link String} 分支
+     */
     private static def trimBranch(String branch) {
         if (branch.contains('/')) {
             String[] array = branch.split('/')
@@ -49,4 +79,14 @@ class GitHelper extends BaseHelper {
         return branch
     }
 
+    /**
+     * 校验输入参数
+     *
+     * @param repoUrl {@link String} 仓库地址
+     * @param branch {@link String} 分支
+     */
+    private static void checkParams(String repoUrl, String branch) {
+        Assert.isNotEmpty(repoUrl, '输入仓库地址为空')
+        Assert.isNotEmpty(branch, '输入分支为空')
+    }
 }

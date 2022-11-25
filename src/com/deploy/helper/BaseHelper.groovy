@@ -7,6 +7,9 @@ package com.deploy.helper
  * */
 abstract class BaseHelper {
 
+    /**
+     * 输出版本号
+     */
     abstract void version()
 
 

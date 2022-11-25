@@ -10,6 +10,9 @@ import com.deploy.property.Tools
  * */
 class YarnHelper extends NodeHelper {
 
+    /**
+     * 构造函数
+     */
     YarnHelper(script, Tools tools) {
         super.script = script
         super.tool = tools.yarn
