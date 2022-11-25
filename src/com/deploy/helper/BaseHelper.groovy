@@ -8,6 +8,4 @@ package com.deploy.helper
  * */
 abstract class BaseHelper {
 
-    abstract def init();
-
 }
