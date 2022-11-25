@@ -78,6 +78,14 @@ def call() {
                     }
                 }
             }
+            stage('WriteDockerfile') {
+                steps {
+                    script {
+                        dockerHelper.writeDockerfile()
+                        dockerHelper.writeDockerignore()
+                    }
+                }
+            }
         }
     }
 }
