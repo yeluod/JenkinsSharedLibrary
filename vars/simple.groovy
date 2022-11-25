@@ -52,6 +52,13 @@ def call() {
                     }
                 }
             }
+            stage('MavenPackage') {
+                steps {
+                    script {
+                        mvnHelper.packageWithAllDependency('sogal-auth')
+                    }
+                }
+            }
         }
     }
 }

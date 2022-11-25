@@ -13,6 +13,27 @@ class MvnHelper extends BaseHelper {
     def script
     def mvn
 
+    static def SETTING_XML = 'setting.xml'
+
+    static def CLEAN = 'clean'
+    static def TEST = 'test'
+    static def PACKAGE = 'package'
+    static def INSTALL = 'install'
+    static def DEPLOY = 'deploy'
+
+    static def SKIP_TEST = '-Dmaven.test.skip=true'
+
+    /**
+     * groupId OR path
+     */
+    static def pl = '-pl'
+    /**
+     * am amd 必须配合 pl 一起使用否则不生效
+     */
+    static def am = '-am'
+    static def amd = '-amd'
+    static def s = "-s ${SETTING_XML}"
+
     /**
      * 构造函数
      */
@@ -33,7 +54,13 @@ class MvnHelper extends BaseHelper {
         this.script.println '开始写入 maven setting.xml ...'
         def xml = this.script.libraryResource('conf/maven/setting.xml')
         def writeHelper = new WriteHelper(this.script)
-        writeHelper.tee('.', 'setting.xml', xml)
+        writeHelper.tee('.', "${SETTING_XML}", xml)
+    }
+
+    void packageWithAllDependency(String module) {
+        this.script.sh """
+            ${this.mvn} ${CLEAN} ${PACKAGE} ${s} ${pl} ${module} ${SKIP_TEST} ${amd}
+        """
     }
 
 
