@@ -8,9 +8,11 @@ package com.deploy.tools
  * */
 class GlobalTool {
 
-    String git
+    def script
 
-    String java
+    def git
+
+    def java
 
 }
 

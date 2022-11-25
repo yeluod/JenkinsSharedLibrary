@@ -5,23 +5,15 @@ import com.deploy.utils.GsonUtil
 
 def call(String msg) {
 
-    readTools()
-
     pipeline {
         agent any
 
-        parameters {
-            choice(
-                    name: 'GitBranches',
-                    description: 'Git分支',
-                    choices: ['main', 'test', 'dev']
-            )
-        }
-
         stages {
-            stage('Hello') {
+            stage('Init') {
                 steps {
-                    echo "${msg}"
+                    script {
+
+                    }
                 }
             }
         }
