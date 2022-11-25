@@ -1,6 +1,3 @@
-import com.deploy.tools.GlobalTool
-import com.deploy.utils.GsonUtil
-
 @Grab('com.google.code.gson:gson:2.10')
 
 def call(String msg) {
@@ -11,21 +8,9 @@ def call(String msg) {
         stages {
             stage('Init') {
                 steps {
-                    script {
-
-                    }
+                    sh 'echo hello'
                 }
             }
         }
     }
-}
-
-/**
- * readTools
- */
-def readTools() {
-    String config = libraryResource('global/config.json')
-    GlobalTool globalTool = GsonUtil.toBean(config, GlobalTool.class)
-    println(globalTool.git)
-    println(globalTool.java)
 }
