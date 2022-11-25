@@ -63,7 +63,7 @@ class DockerHelper extends BaseHelper {
 
     void build(String imageName, String imageTag) {
         this.script.sh """
-            ${this.docker} ${BUILD} ${f} ${DOCKERFILE} ${t} ${imageName}:${imageTag}
+            ${this.docker} ${BUILD} ${f} ${DOCKERFILE} ${t} ${imageName}:${imageTag} .
         """
     }
 }
