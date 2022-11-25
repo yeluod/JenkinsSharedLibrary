@@ -17,7 +17,7 @@ class GitHelper extends BaseHelper{
 
     @Override
     def init() {
-        String config = libraryResource('global/config.json')
+        String config = this.script.libraryResource('global/config.json')
         this.script.println config
         return this
     }
