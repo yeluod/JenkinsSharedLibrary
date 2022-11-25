@@ -12,7 +12,6 @@ class GitHelper extends BaseHelper{
 
     GitHelper(script) {
         this.script = script
-        this.init()
     }
 
     @Override

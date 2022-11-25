@@ -14,6 +14,7 @@ def call() {
                 steps {
                     script {
                         println helper
+                        helper.init()
                     }
                 }
             }
