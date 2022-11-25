@@ -8,12 +8,15 @@ package com.deploy.helper
  * */
 class GitHelper extends BaseHelper{
 
-    def git
+    def script
 
-    def version(){
-        sh """
-            /use/bin/git --version
-        """
+    GitHelper(script) {
+        this.script = script
+        this.init()
     }
 
+    @Override
+    void init() {
+        println 123123
+    }
 }

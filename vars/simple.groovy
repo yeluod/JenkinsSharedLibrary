@@ -4,7 +4,7 @@ import com.deploy.helper.GitHelper
 
 def call() {
 
-    def helper = new GitHelper()
+    def helper = new GitHelper(this)
 
     pipeline {
         agent any
@@ -13,10 +13,7 @@ def call() {
             stage('Init') {
                 steps {
                     script {
-
                         println helper
-
-                        helper.version()
                     }
                 }
             }
