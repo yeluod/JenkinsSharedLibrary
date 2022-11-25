@@ -6,13 +6,21 @@ package com.deploy.helper
  * @author YeLuo
  * @since 2022/11/20
  * */
-class GitHelper {
+class GitHelper extends BaseHelper{
 
     def script
     def git
 
     GitHelper(def script) {
         this.script = script
+        this.init()
+    }
+
+    @Override
+    def init() {
+        this.script.sh """
+            echo hello
+        """
     }
 
     def version(def script){
