@@ -89,7 +89,7 @@ def call() {
             stage('DockerBuildAndPush') {
                 steps {
                     script {
-                        dockerHelper.build('testImage', 'latest')
+                        dockerHelper.build('testimage', 'latest')
                     }
                 }
             }
