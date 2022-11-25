@@ -13,7 +13,7 @@ class Assert {
      * @param expression {@link Boolean} 表达式
      * @param errorMsg {@link String} 错误信息
      */
-    static void isTrue(boolean expression,String errorMsg) {
+    static void isTrue(boolean expression, String errorMsg) {
         if (!expression) {
             throw new IllegalArgumentException(errorMsg)
         }
@@ -24,7 +24,7 @@ class Assert {
      * @param expression {@link Boolean} 表达式
      * @param errorMsg {@link String} 错误信息
      */
-    static void isFalse(boolean expression,String errorMsg) {
+    static void isFalse(boolean expression, String errorMsg) {
         if (expression) {
             throw new IllegalArgumentException(errorMsg)
         }

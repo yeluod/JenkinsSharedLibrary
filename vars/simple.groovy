@@ -1,3 +1,4 @@
+import com.deploy.helper.DockerHelper
 import com.deploy.helper.MvnHelper
 import com.deploy.helper.NpmHelper
 import com.deploy.helper.YarnHelper
@@ -16,6 +17,7 @@ def call() {
     def mvnHelper =  new MvnHelper(this, tools)
     def npmHelper =  new NpmHelper(this, tools)
     def yarnHelper =  new YarnHelper(this, tools)
+    def dockerHelper =  new DockerHelper(this, tools)
     /************************************************/
 
     pipeline {
@@ -30,6 +32,7 @@ def call() {
                         mvnHelper.version()
                         npmHelper.version()
                         yarnHelper.version()
+                        dockerHelper.version()
                     }
                 }
             }
