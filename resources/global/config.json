@@ -1,4 +1,4 @@
 {
-  "git": "/use/bin/git",
-  "java": "/use/bin/java"
+  "git": "/usr/bin/git",
+  "java": "/usr/bin/java"
 }
