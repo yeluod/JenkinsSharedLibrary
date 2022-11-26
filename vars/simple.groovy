@@ -59,8 +59,7 @@ def call() {
             stage('CheckOut') {
                 steps {
                     script {
-                        echo 'ship'
-                        // gitHelper.checkOut("http://10.72.3.205:3000/sogal_it_dept/sogal-ids.git", "null/dev/dev")
+                        gitHelper.checkOut("http://10.72.3.205:3000/sogal_it_dept/sogal-ids.git", "null/dev/dev")
                     }
                 }
             }
