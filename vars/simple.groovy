@@ -1,14 +1,10 @@
 //file:noinspection GrUnresolvedAccess
-@Grab('cn.hutool:hutool-all:5.8.10')
 
-import com.deploy.helper.DockerHelper
-import com.deploy.helper.MvnHelper
-import com.deploy.helper.NpmHelper
-import com.deploy.helper.YarnHelper
+
+import com.deploy.helper.*
+@Grab('cn.hutool:hutool-all:5.8.10')
 import com.deploy.property.Credentials
 import com.deploy.property.Tools
-import com.deploy.helper.GitHelper
-import com.deploy.helper.JavaHelper
 
 def call() {
 
@@ -16,11 +12,11 @@ def call() {
     def tools = Tools.read(this)
     def credentials = Credentials.read(this)
     def gitHelper = new GitHelper(this, tools, credentials)
-    def javaHelper =  new JavaHelper(this, tools)
-    def mvnHelper =  new MvnHelper(this, tools)
-    def npmHelper =  new NpmHelper(this, tools)
-    def yarnHelper =  new YarnHelper(this, tools)
-    def dockerHelper =  new DockerHelper(this, tools)
+    def javaHelper = new JavaHelper(this, tools)
+    def mvnHelper = new MvnHelper(this, tools)
+    def npmHelper = new NpmHelper(this, tools)
+    def yarnHelper = new YarnHelper(this, tools)
+    def dockerHelper = new DockerHelper(this, tools)
     /************************************************/
 
     pipeline {
