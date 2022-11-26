@@ -2,8 +2,7 @@ package com.deploy.helper
 
 import cn.hutool.core.lang.Assert
 import cn.hutool.core.util.StrUtil
-import com.deploy.property.Credentials
-import com.deploy.property.Tools
+import com.deploy.helper.param.GitToolParam
 
 /**
  * GitHelper
@@ -11,21 +10,31 @@ import com.deploy.property.Tools
  * @author YeLuo
  * @since 2022/11/20
  * */
+@SuppressWarnings('unused')
 class GitHelper extends BaseHelper {
 
     def script
-    def git
-    def credentialId
 
-    GitHelper(script, Tools tools, Credentials credentials) {
+    GitToolParam param
+
+    GitHelper(script) {
+        Assert.notNull(script, '当前脚本不能为空')
         this.script = script
-        this.git = tools.git
-        this.credentialId = credentials.git
+    }
+
+    GitHelper(script, String git, String credential) {
+        Assert.notNull(script, '当前脚本不能为空')
+        Assert.notBlank(git, 'Git 可执行文件配置不能为空')
+        Assert.notBlank(credential, 'Git 凭证不能为空')
+        this.script = script
+        this.param.git = git
+        this.param.credential = credential
     }
 
     @Override
     void version() {
-        this.script.sh "${this.git} --version"
+        Assert.notBlank(this.param.git, 'Git 可执行文件配置不能为空')
+        this.script.sh "${this.param.git} --version"
     }
 
     /**
@@ -35,6 +44,17 @@ class GitHelper extends BaseHelper {
      * @param branch {@link String} 分支
      */
     def checkOut(String repoUrl, String branch) {
+        this.checkOut(repoUrl, branch, this.param.credential)
+    }
+
+    /**
+     * 检出分支
+     *
+     * @param repoUrl {@link String} 仓库地址
+     * @param branch {@link String} 分支
+     * @param credential {@link String} 凭证
+     */
+    def checkOut(String repoUrl, String branch, String credential) {
         checkParams(repoUrl, branch)
         branch = trimBranch(branch)
         this.script.println StrUtil.format('当前拉取分支为 -> {}', branch)
@@ -42,7 +62,7 @@ class GitHelper extends BaseHelper {
                               gitTool          : 'Default',
                               branches         : [[name: "*/${branch}"]],
                               extensions       : [[$class: 'CleanBeforeCheckout']],
-                              userRemoteConfigs: [[credentialsId: "${this.credentialId}",
+                              userRemoteConfigs: [[credentialsId: "${credential}",
                                                    url          : "${repoUrl}"]]]
         )
     }
@@ -54,12 +74,36 @@ class GitHelper extends BaseHelper {
      * @param branch {@link String} 分支
      */
     def pullCode(String repoUrl, String branch) {
+        this.pullCode(repoUrl, branch, this.param.credential)
+    }
+
+    /**
+     * 拉取代码
+     *
+     * @param repoUrl {@link String} 仓库地址
+     * @param branch {@link String} 分支
+     * @param credential {@link String} 凭证
+     */
+    def pullCode(String repoUrl, String branch, String credential) {
         checkParams(repoUrl, branch)
         this.script.git(
                 branch: "${branch}",
-                credentialsId: "${this.credentialId}",
+                credentialsId: "${credential}",
                 url: "${repoUrl}"
         )
+    }
+
+    /**
+     * 校验参数
+     *
+     * @param repoUrl {@link String} 仓库地址
+     * @param branch {@link String} 分支
+     */
+    private void checkParams(String repoUrl, String branch) {
+        Assert.notBlank(repoUrl, '输入仓库地址为空')
+        Assert.notBlank(branch, '输入分支为空')
+        Assert.notBlank(this.param.git, 'Git 可执行文件配置不能为空')
+        Assert.notBlank(this.param.credential, 'Git 凭证不能为空')
     }
 
     /**
@@ -80,14 +124,4 @@ class GitHelper extends BaseHelper {
         return branch
     }
 
-    /**
-     * 校验输入参数
-     *
-     * @param repoUrl {@link String} 仓库地址
-     * @param branch {@link String} 分支
-     */
-    private static void checkParams(String repoUrl, String branch) {
-        Assert.notBlank(repoUrl, '输入仓库地址为空')
-        Assert.notBlank(branch, '输入分支为空')
-    }
 }

@@ -1,6 +1,7 @@
 package com.deploy.helper
 
 import cn.hutool.core.util.StrUtil
+import com.deploy.config.Config
 import com.deploy.property.Tools
 
 /**
@@ -14,7 +15,7 @@ class MvnHelper extends BaseHelper {
 
     def script
     def mvn
-    def settingXml
+    def outputSettingXmlPath
 
     static def SETTING_XML_NAME = 'setting.xml'
 
@@ -40,9 +41,16 @@ class MvnHelper extends BaseHelper {
     /**
      * 构造函数
      */
-    MvnHelper(script, Tools tools) {
+    MvnHelper(script) {
         this.script = script
-        this.mvn = tools.mvn
+    }
+
+    /**
+     * 构造函数
+     */
+    MvnHelper(script, Config config) {
+        this.script = script
+        this.mvn = config.mvn.tool
     }
 
     /**
@@ -85,7 +93,7 @@ class MvnHelper extends BaseHelper {
         def writeHelper = new WriteHelper(this.script)
         writeHelper.tee(outputPath, outputName, xmlSource)
         // 赋值 setting.xml 文件路径
-        this.settingXml = outputPath + StrUtil.SLASH + outputName
+        this.outputSettingXmlPath = outputPath + StrUtil.SLASH + outputName
     }
 
     /**
@@ -95,7 +103,7 @@ class MvnHelper extends BaseHelper {
      */
     void packageWithAllDependencySkipTest(String module) {
         this.script.sh """
-            ${this.mvn} ${CLEAN} ${PACKAGE} ${s} ${this.settingXml} ${pl} ${module} ${SKIP_TEST} ${am}
+            ${this.mvn} ${CLEAN} ${PACKAGE} ${s} ${this.outputSettingXmlPath} ${pl} ${module} ${SKIP_TEST} ${am}
         """
     }
 
@@ -106,7 +114,7 @@ class MvnHelper extends BaseHelper {
      */
     void installWithAllDependencySkipTest(String module) {
         this.script.sh """
-            ${this.mvn} ${CLEAN} ${INSTALL} ${s} ${this.settingXml} ${pl} ${module} ${SKIP_TEST} ${am}
+            ${this.mvn} ${CLEAN} ${INSTALL} ${s} ${this.outputSettingXmlPath} ${pl} ${module} ${SKIP_TEST} ${am}
         """
     }
 
@@ -117,7 +125,7 @@ class MvnHelper extends BaseHelper {
      */
     void deployWithAllDependencySkipTest(String module) {
         this.script.sh """
-            ${this.mvn} ${CLEAN} ${DEPLOY} ${s} ${this.settingXml} ${pl} ${module} ${SKIP_TEST} ${am}
+            ${this.mvn} ${CLEAN} ${DEPLOY} ${s} ${this.outputSettingXmlPath} ${pl} ${module} ${SKIP_TEST} ${am}
         """
     }
 

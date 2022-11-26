@@ -1,6 +1,8 @@
 package com.deploy.helper
 
-import com.deploy.property.Tools
+import cn.hutool.core.lang.Assert
+import com.deploy.config.Config
+import com.deploy.helper.param.JavaToolParam
 
 /**
  * GitHelper
@@ -8,17 +10,28 @@ import com.deploy.property.Tools
  * @author YeLuo
  * @since 2022/11/20
  * */
+@SuppressWarnings('unused')
 class JavaHelper extends BaseHelper {
 
     def script
-    def java
+    JavaToolParam param
 
     /**
      * 构造函数
      */
-    JavaHelper(script, Tools tools) {
+    JavaHelper(script) {
+        Assert.notNull(script, '当前脚本不能为空')
         this.script = script
-        this.java = tools.java
+    }
+
+    /**
+     * 构造函数
+     */
+    JavaHelper(script, String java) {
+        Assert.notNull(script, '当前脚本不能为空')
+        Assert.notBlank(java, 'Java 可执行文件配置不能为空')
+        this.script = script
+        this.param.java = java
     }
 
     /**
@@ -26,6 +39,7 @@ class JavaHelper extends BaseHelper {
      */
     @Override
     void version() {
-        this.script.sh "${this.java} --version"
+        Assert.notBlank(this.param.java, 'Java 可执行文件配置不能为空')
+        this.script.sh "${this.param.java} --version"
     }
 }

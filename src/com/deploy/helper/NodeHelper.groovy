@@ -10,6 +10,7 @@ abstract class NodeHelper extends BaseHelper {
 
     protected def script
     protected def tool
+    protected def registry
 
     /**
      * 输出版本号

@@ -1,16 +1,16 @@
+import com.deploy.helper.*
+
 //file:noinspection GrUnresolvedAccess
 
-
-import cn.hutool.json.JSONUtil
-import com.deploy.config.Config
 @Grab('cn.hutool:hutool-all:5.8.10')
 @Grab('org.yaml:snakeyaml:1.33')
 
 def call() {
 
     /************************************************/
-    def config = Config.load(this, 'default')
-
+    def helper = new Helper(this, 'default')
+    JavaHelper javaHelper = helper.loadJavaHelper()
+    GitHelper gitHelper = helper.loadGitHelper()
     /************************************************/
 
     pipeline {
@@ -39,7 +39,8 @@ def call() {
             stage('test') {
                 steps {
                     script {
-                        println JSONUtil.toJsonPrettyStr(config)
+                        javaHelper.version()
+                        gitHelper.version()
                     }
                 }
             }

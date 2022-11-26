@@ -13,9 +13,17 @@ class YarnHelper extends NodeHelper {
     /**
      * 构造函数
      */
-    YarnHelper(script, Tools tools) {
+    YarnHelper(script, yarn) {
         super.script = script
-        super.tool = tools.yarn
+        super.tool = yarn
     }
 
+    /**
+     * 构造函数
+     */
+    YarnHelper(script, yarn, registry) {
+        super.script = script
+        super.tool = yarn
+        super.registry = registry
+    }
 }

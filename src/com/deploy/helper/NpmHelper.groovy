@@ -13,8 +13,17 @@ class NpmHelper extends NodeHelper {
     /**
      * 构造函数
      */
-    NpmHelper(script, Tools tools) {
+    NpmHelper(script, npm) {
         super.script = script
-        super.tool = tools.npm
+        super.tool = npm
+    }
+
+    /**
+     * 构造函数
+     */
+    NpmHelper(script, npm, registry) {
+        super.script = script
+        super.tool = npm
+        super.registry = registry
     }
 }
