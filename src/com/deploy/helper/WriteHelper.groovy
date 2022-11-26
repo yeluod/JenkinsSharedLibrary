@@ -57,7 +57,7 @@ EOF
      * 替换变量
      */
     static def replaceVariable(def body, Map map) {
-        if (map != null) {
+        if (map != null && body instanceof String body) {
             for (final def entry in map.entrySet()) {
                 body = body.replace(body, entry.getKey(), entry.getValue())
             }
