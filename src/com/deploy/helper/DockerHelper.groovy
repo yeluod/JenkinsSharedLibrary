@@ -176,8 +176,8 @@ class DockerHelper extends BaseHelper {
         this.script.sh """
             ${this.docker} ${TAG} ${this.sourceImageName}:${this.sourceImageTag} ${targetName}:${targetTag}
         """
-        this.sourceImageName = targetName
-        this.sourceImageTag = targetTag
+        this.targetImageName = targetName
+        this.targetImageTag = targetTag
     }
 
     /**
