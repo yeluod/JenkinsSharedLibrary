@@ -80,7 +80,7 @@ def call() {
                                 "MODULE_PATH": "sogal-auth"
                         ]
                         dockerHelper.writeDockerfile(dockerHelper.param.templates.java.dockerfile, map)
-                        dockerHelper.writeDockerignore(dockerHelper.param.templates.java.dockerfile)
+                        dockerHelper.writeDockerignore(dockerHelper.param.templates.java.dockerignore)
                     }
                 }
             }
