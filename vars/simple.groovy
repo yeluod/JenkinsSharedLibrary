@@ -1,3 +1,4 @@
+//file:noinspection GrUnresolvedAccess
 @Grab('cn.hutool:hutool-all:5.8.10')
 
 import com.deploy.helper.DockerHelper
