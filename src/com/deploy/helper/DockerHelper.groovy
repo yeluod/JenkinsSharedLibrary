@@ -224,15 +224,4 @@ class DockerHelper extends BaseHelper {
     void systemPrune() {
         this.script.sh "${this.docker} ${SYSTEM_PRUNE}"
     }
-
-    /**
-     * 清理
-     */
-    void clean() {
-        this.script.sh """
-            ${this.docker} ps --filter status=dead --filter status=exited -aq | xargs -r ${this.docker} rm -v
-            ${this.docker} images --no-trunc | grep '<none>' | awk '{ print \$3 }' | xargs -r ${this.docker} rmi
-            ${this.docker} volume ls -f dangling=true | awk '{ print \$2 }' | xargs ${this.docker} volume rm
-        """
-    }
 }

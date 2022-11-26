@@ -92,7 +92,6 @@ def call() {
 
                         dockerHelper.rmi()
                         dockerHelper.systemPrune()
-                        dockerHelper.clean()
                     }
                 }
             }
