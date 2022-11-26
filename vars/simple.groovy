@@ -1,24 +1,14 @@
 //file:noinspection GrUnresolvedAccess
+
+import com.deploy.config.Config
 @Grab('cn.hutool:hutool-all:5.8.10')
 @Grab('org.yaml:snakeyaml:1.33')
-
-import com.deploy.helper.*
-import com.deploy.property.Credentials
-import com.deploy.property.Tools
-import org.yaml.snakeyaml.Yaml
 
 def call() {
 
     /************************************************/
-    def tools = Tools.read(this)
-    def credentials = Credentials.read(this)
-    def gitHelper = new GitHelper(this, tools, credentials)
-    def javaHelper = new JavaHelper(this, tools)
-    def mvnHelper = new MvnHelper(this, tools)
-    def npmHelper = new NpmHelper(this, tools)
-    def yarnHelper = new YarnHelper(this, tools)
-    def dockerHelper = new DockerHelper(this, tools)
-    def yaml = new Yaml()
+    def config = Config.load(this, 'default')
+
     /************************************************/
 
     pipeline {
@@ -47,9 +37,7 @@ def call() {
             stage('test') {
                 steps {
                     script {
-                        String yamlSource = libraryResource('default/default.yml')
-                        def load = yaml.load(yamlSource)
-                        println load.toString()
+                        println config.toString()
                     }
                 }
             }
