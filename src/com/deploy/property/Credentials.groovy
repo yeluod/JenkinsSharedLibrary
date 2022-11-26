@@ -1,6 +1,6 @@
 package com.deploy.property
 
-import com.deploy.utils.GsonUtil
+import cn.hutool.json.JSONUtil
 
 /**
  * Credentials
@@ -15,6 +15,6 @@ class Credentials {
 
     static def read(script) {
         String json = script.libraryResource('property/credentials.json')
-        GsonUtil.toBean(json, Credentials.class)
+        JSONUtil.toBean(json, Credentials.class)
     }
 }

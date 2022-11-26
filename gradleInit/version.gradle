@@ -9,7 +9,7 @@ ext {
     // Dependencies Version
     dv = [
             'groovy' : '4.0.6',
-            'gson' : '2.10',
+            'hutool' : '5.8.10',
             'jenkinsPipelineUnit' : '1.9',
             'junit' : '5.9.0'
     ]

@@ -1,6 +1,6 @@
 package com.deploy.property
 
-import com.deploy.utils.GsonUtil
+import cn.hutool.json.JSONUtil
 
 /**
  * GlobalTool
@@ -19,7 +19,7 @@ class Tools {
 
     static def read(script) {
         String json = script.libraryResource('property/tools.json')
-        GsonUtil.toBean(json, Tools.class)
+        JSONUtil.toBean(json, Tools.class)
     }
 }
 

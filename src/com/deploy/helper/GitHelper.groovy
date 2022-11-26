@@ -1,8 +1,8 @@
 package com.deploy.helper
 
+import cn.hutool.core.lang.Assert
 import com.deploy.property.Credentials
 import com.deploy.property.Tools
-import com.deploy.utils.Assert
 
 /**
  * GitHelper
@@ -86,7 +86,7 @@ class GitHelper extends BaseHelper {
      * @param branch {@link String} 分支
      */
     private static void checkParams(String repoUrl, String branch) {
-        Assert.isNotEmpty(repoUrl, '输入仓库地址为空')
-        Assert.isNotEmpty(branch, '输入分支为空')
+        Assert.notBlank(repoUrl, '输入仓库地址为空')
+        Assert.notBlank(branch, '输入分支为空')
     }
 }

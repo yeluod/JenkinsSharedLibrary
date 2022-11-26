@@ -36,8 +36,9 @@ tasks.withType(JavaCompile) {
 
 dependencies {
     implementation "org.apache.groovy:groovy:${dv.groovy}"
-    implementation "com.google.code.gson:gson:${dv.gson}"
+    implementation "cn.hutool:hutool-all:${dv.hutool}"
 
+    //noinspection VulnerableLibrariesLocal
     testImplementation "com.lesfurets:jenkins-pipeline-unit:${dv.jenkinsPipelineUnit}"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${dv.junit}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${dv.junit}"

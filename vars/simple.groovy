@@ -1,3 +1,5 @@
+@Grab('cn.hutool:hutool-all:5.8.10')
+
 import com.deploy.helper.DockerHelper
 import com.deploy.helper.MvnHelper
 import com.deploy.helper.NpmHelper
@@ -6,8 +8,6 @@ import com.deploy.property.Credentials
 import com.deploy.property.Tools
 import com.deploy.helper.GitHelper
 import com.deploy.helper.JavaHelper
-
-@Grab('com.google.code.gson:gson:2.10')
 
 def call() {
 

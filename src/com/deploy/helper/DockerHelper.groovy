@@ -48,7 +48,7 @@ class DockerHelper extends BaseHelper {
      * @param source {@link String} 资源文件
      * @return {@link String} 输出文件路径
      */
-    void  writeDockerfile(String source) {
+    void writeDockerfile(String source) {
         this.writeDockerfile(source, CURRENT_DIRECTORY)
     }
 
@@ -59,7 +59,7 @@ class DockerHelper extends BaseHelper {
      * @param outputPath {@link String} 输出位置
      * @return {@link String} 输出文件路径
      */
-    void  writeDockerfile(String source, String outputPath) {
+    void writeDockerfile(String source, String outputPath) {
         this.writeDockerfile(source, outputPath, DOCKERFILE_NAME)
     }
 
@@ -71,7 +71,7 @@ class DockerHelper extends BaseHelper {
      * @param outputName {@link String} 输出名称
      * @return {@link String} 输出文件路径
      */
-    void  writeDockerfile(String source, String outputPath, String outputName) {
+    void writeDockerfile(String source, String outputPath, String outputName) {
         this.writeDockerfile(source, outputPath, outputName, null)
     }
 
@@ -82,7 +82,7 @@ class DockerHelper extends BaseHelper {
      * @param variable {@link Map} 需要替换的变量
      * @return {@link String} 输出文件路径
      */
-    void  writeDockerfile(String source, Map map) {
+    void writeDockerfile(String source, Map map) {
         this.writeDockerfile(source, CURRENT_DIRECTORY, DOCKERFILE_NAME, map)
     }
 

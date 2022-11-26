@@ -1,4 +1,7 @@
 package com.deploy.helper
+
+import cn.hutool.core.util.StrUtil
+
 /**
  * WriteHelper
  *
@@ -60,7 +63,7 @@ EOF
         if (map != null) {
             for (final def entry in map.entrySet()) {
                 //noinspection GroovyAssignabilityCheck
-                body = body.replace(body, entry.getKey(), entry.getValue())
+                body = StrUtil.replace(body, entry.getKey(), entry.getValue())
             }
         }
         body
