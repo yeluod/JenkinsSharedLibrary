@@ -91,6 +91,8 @@ def call() {
                         println(dockerHelper.getTargetImageTag())
 
                         dockerHelper.rmi()
+                        dockerHelper.systemPrune()
+                        dockerHelper.clean()
                     }
                 }
             }
