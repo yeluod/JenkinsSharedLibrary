@@ -1,0 +1,38 @@
+git:
+  tool: /usr/bin/git
+  credential: GogsCredentials
+
+java:
+  tool: /usr/bin/java
+
+mvn:
+  tool: /usr/bin/mvn
+  setting:
+    source: default/conf/maven/setting.xml
+
+npm:
+  tool: /usr/bin/npm
+  registry: https://registry.npm.taobao.org
+
+yarn:
+  tool: /usr/bin/yarn
+  registry: https://registry.npm.taobao.org
+
+docker:
+  tool: /usr/bin/docker
+  registry:
+    host: 10.72.3.123:80
+    credential: HarborCredentials
+  templates:
+    java:
+      dockerignore: default/templates/java/.dockerignore
+      dockerfile: default/templates/java/Dockerfile
+      kubernetes: default/templates/java/Kubernetes.yml
+    node:
+      nginx: default/templates/node/nginx.conf
+      dockerignore: default/templates/node/.dockerignore
+      dockerfile: default/templates/node/Dockerfile
+      kubernetes: default/templates/node/Kubernetes.yml
+
+kubectl:
+  tool: /usr/bin/kubectl

@@ -1,0 +1,11 @@
+# comment
+
+*.xml
+*.class
+*.java
+
+*/*/src*
+*/*/target/classes
+
+*/*/*/src*
+*/*/*/target/classes*

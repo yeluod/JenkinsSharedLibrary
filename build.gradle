@@ -37,6 +37,8 @@ tasks.withType(JavaCompile) {
 dependencies {
     implementation "org.apache.groovy:groovy:${dv.groovy}"
     implementation "cn.hutool:hutool-all:${dv.hutool}"
+    //noinspection VulnerableLibrariesLocal
+    implementation "org.yaml:snakeyaml:${dv.snakeyaml}"
 
     //noinspection VulnerableLibrariesLocal
     testImplementation "com.lesfurets:jenkins-pipeline-unit:${dv.jenkinsPipelineUnit}"

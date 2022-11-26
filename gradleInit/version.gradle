@@ -10,6 +10,7 @@ ext {
     dv = [
             'groovy' : '4.0.6',
             'hutool' : '5.8.10',
+            'snakeyaml' : '1.33',
             'jenkinsPipelineUnit' : '1.9',
             'junit' : '5.9.0'
     ]

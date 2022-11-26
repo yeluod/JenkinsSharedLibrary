@@ -1,9 +1,11 @@
 //file:noinspection GrUnresolvedAccess
 @Grab('cn.hutool:hutool-all:5.8.10')
+@Grab('org.yaml:snakeyaml:1.33')
 
 import com.deploy.helper.*
 import com.deploy.property.Credentials
 import com.deploy.property.Tools
+import org.yaml.snakeyaml.Yaml
 
 def call() {
 
@@ -16,6 +18,7 @@ def call() {
     def npmHelper = new NpmHelper(this, tools)
     def yarnHelper = new YarnHelper(this, tools)
     def dockerHelper = new DockerHelper(this, tools)
+    def yaml = new Yaml()
     /************************************************/
 
     pipeline {
@@ -56,7 +59,8 @@ def call() {
             stage('CheckOut') {
                 steps {
                     script {
-                        gitHelper.checkOut("http://10.72.3.205:3000/sogal_it_dept/sogal-ids.git", "null/dev/dev")
+                        echo 'ship'
+                        // gitHelper.checkOut("http://10.72.3.205:3000/sogal_it_dept/sogal-ids.git", "null/dev/dev")
                     }
                 }
             }
@@ -82,14 +86,17 @@ def call() {
                         Map map = [
                                 'MODULE_PATH': 'sogal-auth'
                         ]
-                        //dockerHelper.writeDockerfile('templates/Springboot/Dockerfile', map)
-                        //dockerHelper.writeDockerignore('templates/Springboot/.dockerignore')
-                        //dockerHelper.build('testimage', 'latest')
-                        //dockerHelper.tag('targetimage')
-                        //dockerHelper.rmi()
-                        //dockerHelper.systemPrune()
+                        /*dockerHelper.writeDockerfile('templates/Springboot/Dockerfile', map)
+                        dockerHelper.writeDockerignore('templates/Springboot/.dockerignore')
+                        dockerHelper.build('testimage', 'latest')
+                        dockerHelper.tag('targetimage')
+                        dockerHelper.rmi()
+                        dockerHelper.systemPrune()
+                        println dockerHelper.isLogin('10.72.3.123:80')*/
 
-                        println dockerHelper.isLogin('10.72.3.123:80')
+                        String yamlSource = libraryResource('default/default.yml')
+                        def load = yaml.load(yamlSource)
+                        println load.toString()
                     }
                 }
             }
