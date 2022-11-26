@@ -1,5 +1,6 @@
 package com.deploy.helper
 
+import cn.hutool.json.JSONUtil
 import com.deploy.config.Config
 import org.yaml.snakeyaml.Yaml
 
@@ -29,6 +30,7 @@ class Helper {
 
     def loadJavaHelper() {
         this.loadConfig()
+        println(JSONUtil.toJsonPrettyStr(this.config))
         def helper = new JavaHelper(this.script)
         helper.param = this.config.javaToolParam
         return helper
@@ -36,6 +38,7 @@ class Helper {
 
     def loadGitHelper() {
         this.loadConfig()
+        println(JSONUtil.toJsonPrettyStr(this.config))
         def helper = new GitHelper(this.script)
         helper.param = this.config.gitToolParam
         return helper
