@@ -14,6 +14,7 @@ def call() {
     def mvnHelper = helper.loadMvnHelper()
     def npmHelper = helper.loadNpmHelper()
     def yarnHelper = helper.loadYarnHelper()
+    def dockerHelper = helper.loadDockerHelper()
     /************************************************/
 
     pipeline {
@@ -47,6 +48,7 @@ def call() {
                         mvnHelper.version()
                         npmHelper.version()
                         yarnHelper.version()
+                        dockerHelper.version()
                     }
                 }
             }

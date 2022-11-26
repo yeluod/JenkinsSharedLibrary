@@ -2,7 +2,7 @@ package com.deploy.helper
 
 
 import cn.hutool.core.util.StrUtil
-import com.deploy.property.Tools
+import com.deploy.helper.param.DockerToolParam
 
 /**
  * DockerHelper
@@ -14,8 +14,9 @@ import com.deploy.property.Tools
 class DockerHelper extends BaseHelper {
 
     def script
-    def docker
-    def dockerfilePath
+    DockerToolParam param
+
+    String dockerfilePath
     String sourceImageName
     String sourceImageTag
     String targetImageName
@@ -34,13 +35,19 @@ class DockerHelper extends BaseHelper {
     static def f = '-f'
     static def t = '-t'
 
+    /**
+     * 构造函数
+     */
+    DockerHelper(script) {
+        this.script = script
+    }
 
     /**
      * 构造函数
      */
-    DockerHelper(script, Tools tools) {
+    DockerHelper(script, String docker) {
         this.script = script
-        this.docker = tools.docker
+        this.param.docker = docker
     }
 
     /**
@@ -48,7 +55,7 @@ class DockerHelper extends BaseHelper {
      */
     @Override
     void version() {
-        this.script.sh "${this.docker} -v"
+        this.script.sh "${this.param.docker} -v"
     }
 
     /**
@@ -151,7 +158,7 @@ class DockerHelper extends BaseHelper {
      */
     void build(String name, String tag, String path) {
         this.script.sh """
-            ${this.docker} ${BUILD} ${f} ${this.dockerfilePath} ${t} ${name}:${tag} ${path}
+            ${this.param.docker} ${BUILD} ${f} ${this.dockerfilePath} ${t} ${name}:${tag} ${path}
         """
         this.sourceImageName = name
         this.sourceImageTag = tag
@@ -174,7 +181,7 @@ class DockerHelper extends BaseHelper {
      */
     void tag(String targetName, String targetTag) {
         this.script.sh """
-            ${this.docker} ${TAG} ${this.sourceImageName}:${this.sourceImageTag} ${targetName}:${targetTag}
+            ${this.param.docker} ${TAG} ${this.sourceImageName}:${this.sourceImageTag} ${targetName}:${targetTag}
         """
         this.targetImageName = targetName
         this.targetImageTag = targetTag
@@ -185,7 +192,7 @@ class DockerHelper extends BaseHelper {
      */
     void push() {
         def image = this.getImage()
-        this.script.sh "${this.docker} ${PUSH} ${image}"
+        this.script.sh "${this.param.docker} ${PUSH} ${image}"
     }
 
     def isLogin(String host) {
@@ -209,7 +216,7 @@ class DockerHelper extends BaseHelper {
                         passwordVariable: 'IMAGES_REGISTRY_PASSWORD',
                         usernameVariable: 'IMAGES_REGISTRY_USERNAME')]) {
                     this.script.sh """
-                        ${docker} login ${host} -u ${this.script.IMAGES_REGISTRY_USERNAME} -p ${this.script.IMAGES_REGISTRY_PASSWORD}
+                        ${param.docker} login ${host} -u ${this.script.IMAGES_REGISTRY_USERNAME} -p ${this.script.IMAGES_REGISTRY_PASSWORD}
                     """
                 }
     }
@@ -227,9 +234,9 @@ class DockerHelper extends BaseHelper {
      * 清除本地镜像
      */
     void rmi() {
-        this.script.sh "${this.docker} ${RMI} ${this.sourceImageName}:${this.sourceImageTag}"
+        this.script.sh "${this.param.docker} ${RMI} ${this.sourceImageName}:${this.sourceImageTag}"
         if (StrUtil.isNotBlank((String) this.targetImageName)) {
-            this.script.sh "${this.docker} ${RMI} ${this.targetImageName}:${this.targetImageTag}"
+            this.script.sh "${this.param.docker} ${RMI} ${this.targetImageName}:${this.targetImageTag}"
         }
     }
 
@@ -237,7 +244,7 @@ class DockerHelper extends BaseHelper {
      * 显示磁盘使用情况
      */
     void systemDf() {
-        this.script.sh "${this.docker} ${SYSTEM_DF}"
+        this.script.sh "${this.param.docker} ${SYSTEM_DF}"
     }
 
     /**
@@ -248,6 +255,6 @@ class DockerHelper extends BaseHelper {
      * - all dangling build cache
      */
     void systemPrune() {
-        this.script.sh "${this.docker} ${SYSTEM_PRUNE}"
+        this.script.sh "${this.param.docker} ${SYSTEM_PRUNE}"
     }
 }

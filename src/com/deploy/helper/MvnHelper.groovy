@@ -1,6 +1,6 @@
 package com.deploy.helper
 
-import cn.hutool.core.lang.Assert
+
 import cn.hutool.core.util.StrUtil
 import com.deploy.helper.param.MvnToolParam
 
@@ -60,7 +60,6 @@ class MvnHelper extends BaseHelper {
      */
     @Override
     void version() {
-        this.checkParam()
         this.script.sh "${this.param.mvn} -v"
     }
 
@@ -98,10 +97,6 @@ class MvnHelper extends BaseHelper {
      * @param outputName {@link String} 输出名称
      */
     void writeSettingXml(String source, String outputPath, String outputName) {
-        Assert.notNull(this.script, '当前脚本不能为空')
-        Assert.notBlank(source, 'Mvn Setting资源文件不能为空')
-        Assert.notBlank(outputPath, 'Mvn Setting输出位置不能为空')
-        Assert.notBlank(outputPath, 'Mvn Setting输出名称不能为空')
         this.script.println '开始写入 maven setting.xml ...'
         def xmlSource = this.script.libraryResource(source)
         def writeHelper = new WriteHelper(this.script)
@@ -116,8 +111,6 @@ class MvnHelper extends BaseHelper {
      * @param module {@link String} 模块 groupId OR path
      */
     void packageWithAllDependencySkipTest(String module) {
-        checkModule(module)
-        this.checkParam()
         this.script.sh """
             ${this.param.mvn} ${CLEAN} ${PACKAGE} ${this.getMavenCommand(module)}
         """
@@ -129,8 +122,6 @@ class MvnHelper extends BaseHelper {
      * @param module {@link String} 模块 groupId OR path
      */
     void installWithAllDependencySkipTest(String module) {
-        checkModule(module)
-        this.checkParam()
         this.script.sh """
             ${this.param.mvn} ${CLEAN} ${INSTALL} ${this.getMavenCommand(module)}
         """
@@ -142,8 +133,6 @@ class MvnHelper extends BaseHelper {
      * @param module {@link String} 模块 groupId OR path
      */
     void deployWithAllDependencySkipTest(String module) {
-        checkModule(module)
-        this.checkParam()
         this.script.sh """
             ${this.param.mvn} ${CLEAN} ${DEPLOY} ${this.getMavenCommand(module)}
         """
@@ -159,15 +148,5 @@ class MvnHelper extends BaseHelper {
         }
         command
     }
-
-    void checkParam() {
-        Assert.notNull(this.script, '当前脚本不能为空')
-        Assert.notBlank(this.param.mvn, 'Mvn 可执行文件配置不能为空')
-    }
-
-    static void checkModule(String module) {
-        Assert.notBlank(module, '打包模块 groupId OR path 不能为空')
-    }
-
 
 }

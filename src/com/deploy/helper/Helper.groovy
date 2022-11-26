@@ -65,4 +65,12 @@ class Helper {
         return helper
     }
 
+
+    DockerHelper loadDockerHelper() {
+        this.loadConfig()
+        def helper = new DockerHelper(this.script)
+        helper.param = this.config.dockerToolParam
+        return helper
+    }
+
 }

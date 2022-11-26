@@ -1,6 +1,6 @@
 package com.deploy.helper
 
-import cn.hutool.core.lang.Assert
+
 import cn.hutool.core.util.StrUtil
 import com.deploy.helper.param.GitToolParam
 
@@ -18,14 +18,10 @@ class GitHelper extends BaseHelper {
     GitToolParam param
 
     GitHelper(script) {
-        Assert.notNull(script, '当前脚本不能为空')
         this.script = script
     }
 
     GitHelper(script, String git, String credential) {
-        Assert.notNull(script, '当前脚本不能为空')
-        Assert.notBlank(git, 'Git 可执行文件配置不能为空')
-        Assert.notBlank(credential, 'Git 凭证不能为空')
         this.script = script
         this.param.git = git
         this.param.credential = credential
@@ -33,8 +29,6 @@ class GitHelper extends BaseHelper {
 
     @Override
     void version() {
-        Assert.notNull(this.script, '当前脚本不能为空')
-        Assert.notBlank(this.param.git, 'Git 可执行文件配置不能为空')
         this.script.sh "${this.param.git} --version"
     }
 
@@ -56,7 +50,6 @@ class GitHelper extends BaseHelper {
      * @param credential {@link String} 凭证
      */
     def checkOut(String repoUrl, String branch, String credential) {
-        checkParam(repoUrl, branch)
         branch = trimBranch(branch)
         this.script.println StrUtil.format('当前拉取分支为 -> {}', branch)
         this.script.checkout([$class           : 'GitSCM',
@@ -86,26 +79,11 @@ class GitHelper extends BaseHelper {
      * @param credential {@link String} 凭证
      */
     def pullCode(String repoUrl, String branch, String credential) {
-        checkParam(repoUrl, branch)
         this.script.git(
                 branch: "${branch}",
                 credentialsId: "${credential}",
                 url: "${repoUrl}"
         )
-    }
-
-    /**
-     * 校验参数
-     *
-     * @param repoUrl {@link String} 仓库地址
-     * @param branch {@link String} 分支
-     */
-    private void checkParam(String repoUrl, String branch) {
-        Assert.notBlank(repoUrl, '输入仓库地址为空')
-        Assert.notBlank(branch, '输入分支为空')
-        Assert.notNull(this.script, '当前脚本不能为空')
-        Assert.notBlank(this.param.git, 'Git 可执行文件配置不能为空')
-        Assert.notBlank(this.param.credential, 'Git 凭证不能为空')
     }
 
     /**
