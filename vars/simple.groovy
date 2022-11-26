@@ -1,8 +1,7 @@
 //file:noinspection GrUnresolvedAccess
-
+@Grab('cn.hutool:hutool-all:5.8.10')
 
 import com.deploy.helper.*
-@Grab('cn.hutool:hutool-all:5.8.10')
 import com.deploy.property.Credentials
 import com.deploy.property.Tools
 
@@ -84,6 +83,8 @@ def call() {
                         dockerHelper.writeDockerfile('templates/Springboot/Dockerfile', map)
                         dockerHelper.writeDockerignore('templates/Springboot/.dockerignore')
                         dockerHelper.build('testimage', 'latest')
+                        dockerHelper.tag('targetimage')
+                        dockerHelper.rmi()
                     }
                 }
             }

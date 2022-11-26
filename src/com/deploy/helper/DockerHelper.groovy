@@ -16,12 +16,20 @@ class DockerHelper extends BaseHelper {
     def script
     def docker
     def dockerfilePath
+    String sourceImageName
+    String sourceImageTag
+    String targetImageName
+    String targetImageTag
 
     static def DOCKERFILE_NAME = 'Dockerfile'
     static def DOCKER_IGNORE = '.dockerignore'
 
     static def BUILD = 'build'
+    static def TAG = 'tag'
     static def PUSH = 'push'
+    static def RMI = 'rmi'
+    static def SYSTEM_PRUNE = 'system prune -f'
+    static def SYSTEM_DF = 'system df'
 
     static def f = '-f'
     static def t = '-t'
@@ -124,9 +132,107 @@ class DockerHelper extends BaseHelper {
         writeHelper.tee(outputPath, DOCKER_IGNORE, dockerIgnoreSource)
     }
 
-    void build(String imageName, String imageTag) {
+    /**
+     * build
+     *
+     * @param name {@link String} 名称
+     * @param tag {@link String} 版本
+     */
+    void build(String name, String tag) {
+        this.build(name, tag, StrUtil.DOT)
+    }
+
+    /**
+     * build
+     *
+     * @param name {@link String} 名称
+     * @param tag {@link String} 版本
+     * @param path {@link String} 工作路径
+     */
+    void build(String name, String tag, String path) {
         this.script.sh """
-            ${this.docker} ${BUILD} ${f} ${this.dockerfilePath} ${t} ${imageName}:${imageTag} .
+            ${this.docker} ${BUILD} ${f} ${this.dockerfilePath} ${t} ${name}:${tag} ${path}
+        """
+        this.sourceImageName = name
+        this.sourceImageTag = tag
+    }
+
+    /**
+     * tag
+     *
+     * @param targetName {@link String} 目标名称
+     */
+    void tag(String targetName) {
+        this.tag(targetName, this.sourceImageTag)
+    }
+
+    /**
+     * tag
+     *
+     * @param targetName {@link String} 目标名称
+     * @param targetTag {@link String} 目标版本
+     */
+    void tag(String targetName, String targetTag) {
+        this.script.sh """
+            ${this.docker} ${TAG} ${this.sourceImageName}:${this.sourceImageTag} ${targetName}:${targetTag}
+        """
+        this.sourceImageName = targetName
+        this.sourceImageTag = targetTag
+    }
+
+    /**
+     * 推送镜像
+     */
+    void push() {
+        def image = this.getImage()
+        this.script.sh "${this.docker} ${PUSH} ${image}"
+    }
+
+    /**
+     * 获取最终镜像
+     */
+    String getImage() {
+        StrUtil.isNotBlank(this.targetImageName)
+                ? "${this.targetImageName}:${this.targetImageTag}"
+                : "${this.sourceImageName}:${this.sourceImageTag}"
+    }
+
+    /**
+     * 清除本地镜像
+     */
+    void rmi() {
+        this.script.sh "${this.docker} ${RMI} ${this.sourceImageName}:${this.sourceImageTag}"
+        if (StrUtil.isNotBlank((String) this.targetImageName)) {
+            this.script.sh "${this.docker} ${RMI} ${this.targetImageName}:${this.targetImageTag}"
+        }
+    }
+
+    /**
+     * 显示磁盘使用情况
+     */
+    void systemDf() {
+        this.script.sh "${this.docker} ${SYSTEM_DF}"
+    }
+
+    /**
+     * 删除未使用的数据
+     * - all stopped containers
+     * - all networks not used by at least one container
+     * - all dangling images
+     * - all dangling build cache
+     */
+    void systemPrune() {
+        this.script.sh "${this.docker} ${SYSTEM_PRUNE}"
+    }
+
+    /**
+     * 清理
+     */
+    void clean() {
+        this.script.sh """
+            ${this.docker} ps --filter status=dead --filter status=exited -aq | xargs -r ${this.docker} rm -v
+            ${this.docker} images --no-trunc | grep '<none>' | awk '{ print \$3 }' | xargs -r ${this.docker} rmi
+            ${this.docker} volume ls -f dangling=true | awk '{ print \$2 }' | xargs ${this.docker} volume rm
         """
     }
 }
