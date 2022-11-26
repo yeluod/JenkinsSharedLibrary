@@ -188,12 +188,12 @@ class DockerHelper extends BaseHelper {
         this.script.sh "${this.docker} ${PUSH} ${image}"
     }
 
-    def isLogin() {
+    def isLogin(String host) {
         try {
-            String result = this.script.sh 'cat ~/.docker/config.json'
-            this.script.println result
-        } catch (Throwable throwable) {
-            this.script.println throwable.printStackTrace()
+            this.script.sh "cat ~/.docker/config.json | grep ${host}"
+            return true
+        } catch (Throwable ignored) {
+            return false
         }
     }
 

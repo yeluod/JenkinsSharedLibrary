@@ -89,7 +89,7 @@ def call() {
                         //dockerHelper.rmi()
                         //dockerHelper.systemPrune()
 
-                        dockerHelper.isLogin()
+                        println dockerHelper.isLogin('10.72.3.123:80')
                     }
                 }
             }
