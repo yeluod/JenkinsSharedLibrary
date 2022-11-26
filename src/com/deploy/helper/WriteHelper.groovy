@@ -1,5 +1,4 @@
 package com.deploy.helper
-
 /**
  * WriteHelper
  *
@@ -20,7 +19,7 @@ class WriteHelper {
     /**
      * 写入文件
      */
-    void cat(path, fileName, body) {
+    void cat(def path, def fileName, def body) {
         this.script.sh """
             cat ${path}/${fileName} <<-'EOF'
 ${body}
@@ -29,13 +28,40 @@ EOF
     }
 
     /**
+     * 写入文件, 替换变量
+     * @return
+     */
+    def cat(def path, def fileName, def body, Map map) {
+        this.cat(path, fileName, replaceVariable(body, map))
+    }
+
+    /**
      * 写入文件
      */
-    void tee(path, fileName, body) {
+    void tee(def path, def fileName, def body) {
         this.script.sh """
             tee ${path}/${fileName} <<-'EOF'
 ${body}
 EOF
         """
+    }
+
+    /**
+     * 写入文件, 替换变量
+     */
+    void tee(def path, def fileName, def body, Map map) {
+        this.tee(path, fileName, replaceVariable(body, map))
+    }
+
+    /**
+     * 替换变量
+     */
+    static def replaceVariable(def body, Map map) {
+        if (map != null) {
+            for (final def entry in map.entrySet()) {
+                body = body.replace(body, entry.getKey(), entry.getValue())
+            }
+        }
+        body
     }
 }

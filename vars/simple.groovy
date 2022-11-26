@@ -78,17 +78,14 @@ def call() {
                     }
                 }
             }
-            stage('WriteDockerfile') {
-                steps {
-                    script {
-                        dockerHelper.writeDockerfile()
-                        dockerHelper.writeDockerignore()
-                    }
-                }
-            }
             stage('DockerBuildAndPush') {
                 steps {
                     script {
+                        Map map = [
+                                'MODULE_PATH': 'sogal-auth'
+                        ]
+                        dockerHelper.writeDockerfile('templates/Springboot/Dockerfile', map)
+                        dockerHelper.writeDockerignore('templates/Springboot/.dockerignore')
                         dockerHelper.build('testimage', 'latest')
                     }
                 }

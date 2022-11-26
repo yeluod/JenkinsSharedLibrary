@@ -9,7 +9,7 @@ EXPOSE 8080
 
 VOLUME /tmp
 
-ADD *.jar app.jar
+ADD MODULE_PATH/target/*.jar app.jar
 
 ENV TZ=Asia/Shanghai \
     JAVA_OPTS='-Xms512m -Xmx1024m -Xss256K' \
