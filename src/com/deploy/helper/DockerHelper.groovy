@@ -206,8 +206,8 @@ class DockerHelper extends BaseHelper {
         this.script
                 .withCredentials([this.script.usernamePassword(
                         credentialsId: "${credentialsId}",
-                        passwordVariable: 'IMAGES_REGISTRY_USERNAME',
-                        usernameVariable: 'IMAGES_REGISTRY_PASSWORD')]) {
+                        passwordVariable: 'IMAGES_REGISTRY_PASSWORD',
+                        usernameVariable: 'IMAGES_REGISTRY_USERNAME')]) {
                     this.script.sh """
                         ${docker} login ${host} -u ${this.script.IMAGES_REGISTRY_USERNAME} -p ${this.script.IMAGES_REGISTRY_PASSWORD}
                     """
