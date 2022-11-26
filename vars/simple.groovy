@@ -63,6 +63,7 @@ def call() {
             stage('WriteSettingXml') {
                 steps {
                     script {
+                        echo 'ship'
                         // mvnHelper.writeSettingXml('conf/maven/setting.xml')
                     }
                 }
