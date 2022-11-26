@@ -1,5 +1,7 @@
 //file:noinspection GrUnresolvedAccess
 
+
+import cn.hutool.json.JSONUtil
 import com.deploy.config.Config
 @Grab('cn.hutool:hutool-all:5.8.10')
 @Grab('org.yaml:snakeyaml:1.33')
@@ -37,7 +39,7 @@ def call() {
             stage('test') {
                 steps {
                     script {
-                        println config.toString()
+                        println JSONUtil.toJsonPrettyStr(config)
                     }
                 }
             }
