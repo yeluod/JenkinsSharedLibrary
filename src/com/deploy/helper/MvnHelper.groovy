@@ -96,7 +96,7 @@ class MvnHelper extends BaseHelper {
      */
     void packageWithAllDependencySkipTest(String module) {
         this.script.sh """
-            ${this.mvn} ${CLEAN} ${PACKAGE} -T 4 ${s} ${this.settingXml} ${pl} ${module} ${SKIP_TEST} ${am}
+            ${this.mvn} ${CLEAN} ${PACKAGE} ${s} ${this.settingXml} ${pl} ${module} ${SKIP_TEST} ${am}
         """
     }
 
