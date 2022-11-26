@@ -1,9 +1,9 @@
 gitToolParam:
-  java: /usr/bin/git
+  git: /usr/bin/git
   credential: GogsCredentials
 
 javaToolParam:
-  git: /usr/bin/java
+  java: /usr/bin/java
 
 mvnToolParam:
   mvn: /usr/bin/mvn

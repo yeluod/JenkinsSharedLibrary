@@ -24,13 +24,13 @@ class Helper {
     def loadConfig() {
         if (this.config == null) {
             String yamlSource = this.script.libraryResource("${this.env}/config.yml")
+            println(JSONUtil.toJsonPrettyStr(yamlSource))
             this.config = new Yaml().loadAs(yamlSource, Config.class)
         }
     }
 
     def loadJavaHelper() {
         this.loadConfig()
-        println(JSONUtil.toJsonPrettyStr(this.config))
         def helper = new JavaHelper(this.script)
         helper.param = this.config.javaToolParam
         return helper
@@ -38,7 +38,6 @@ class Helper {
 
     def loadGitHelper() {
         this.loadConfig()
-        println(JSONUtil.toJsonPrettyStr(this.config))
         def helper = new GitHelper(this.script)
         helper.param = this.config.gitToolParam
         return helper
