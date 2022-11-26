@@ -84,6 +84,12 @@ def call() {
                         dockerHelper.writeDockerignore('templates/Springboot/.dockerignore')
                         dockerHelper.build('testimage', 'latest')
                         dockerHelper.tag('targetimage')
+
+                        println(dockerHelper.getSourceImageName())
+                        println(dockerHelper.getSourceImageTag())
+                        println(dockerHelper.getTargetImageName())
+                        println(dockerHelper.getTargetImageTag())
+
                         dockerHelper.rmi()
                     }
                 }
