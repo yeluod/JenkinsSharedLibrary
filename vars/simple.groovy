@@ -70,6 +70,7 @@ def call() {
             stage('MavenPackage') {
                 steps {
                     script {
+                        echo 'ship'
                         //mvnHelper.packageWithAllDependencySkipTest('sogal-auth')
                     }
                 }
