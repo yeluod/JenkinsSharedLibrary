@@ -52,6 +52,47 @@ def call() {
                     }
                 }
             }
+            stage('CheckOut') {
+                steps {
+                    script {
+                        gitHelper.checkOut('http://10.72.3.205:3000/sogal_it_dept/sogal-ids.git', 'dev')
+                    }
+                }
+            }
+            stage('WriteMavenSetting') {
+                steps {
+                    script {
+                        mvnHelper.writeSettingXml()
+                    }
+                }
+            }
+            stage('MavenPackage') {
+                steps {
+                    script {
+                        mvnHelper.packageWithAllDependencySkipTest('sogal-auth')
+                    }
+                }
+            }
+            stage('WriteDockerfile') {
+                steps {
+                    script {
+                        Map map = [
+                                "MODULE_PATH": "sogal-auth"
+                        ]
+                        dockerHelper.writeDockerfile(dockerHelper.param.templates.java.dockerfile, map)
+                        dockerHelper.writeDockerignore(dockerHelper.param.templates.java.dockerfile)
+                    }
+                }
+            }
+            stage('DockerBuildAndPush') {
+                steps {
+                    script {
+                        dockerHelper.build('testimages', 'dev-1.0.0')
+                        dockerHelper.tag('targetimages')
+                        dockerHelper.rmi()
+                    }
+                }
+            }
         }
     }
 }
