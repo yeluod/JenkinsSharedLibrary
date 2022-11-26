@@ -63,14 +63,14 @@ def call() {
             stage('WriteSettingXml') {
                 steps {
                     script {
-                        mvnHelper.writeSettingXml('conf/maven/setting.xml')
+                        // mvnHelper.writeSettingXml('conf/maven/setting.xml')
                     }
                 }
             }
             stage('MavenPackage') {
                 steps {
                     script {
-                        mvnHelper.packageWithAllDependencySkipTest('sogal-auth')
+                        //mvnHelper.packageWithAllDependencySkipTest('sogal-auth')
                     }
                 }
             }
@@ -80,18 +80,12 @@ def call() {
                         Map map = [
                                 'MODULE_PATH': 'sogal-auth'
                         ]
-                        dockerHelper.writeDockerfile('templates/Springboot/Dockerfile', map)
-                        dockerHelper.writeDockerignore('templates/Springboot/.dockerignore')
-                        dockerHelper.build('testimage', 'latest')
-                        dockerHelper.tag('targetimage')
-
-                        println(dockerHelper.getSourceImageName())
-                        println(dockerHelper.getSourceImageTag())
-                        println(dockerHelper.getTargetImageName())
-                        println(dockerHelper.getTargetImageTag())
-
-                        dockerHelper.rmi()
-                        dockerHelper.systemPrune()
+                        //dockerHelper.writeDockerfile('templates/Springboot/Dockerfile', map)
+                        //dockerHelper.writeDockerignore('templates/Springboot/.dockerignore')
+                        //dockerHelper.build('testimage', 'latest')
+                        //dockerHelper.tag('targetimage')
+                        //dockerHelper.rmi()
+                        //dockerHelper.systemPrune()
 
                         dockerHelper.isLogin()
                     }
