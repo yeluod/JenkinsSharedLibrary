@@ -89,6 +89,7 @@ def call() {
                         //dockerHelper.rmi()
                         //dockerHelper.systemPrune()
 
+                        dockerHelper.login('10.72.3.124:80', 'HatborCredentials')
                         dockerHelper.isLogin()
                     }
                 }
