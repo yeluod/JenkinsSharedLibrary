@@ -74,7 +74,7 @@ def call() {
             stage('MavenPackage') {
                 steps {
                     script {
-                        mvnHelper.packageWithAllDependency('sogal-auth')
+                        mvnHelper.packageWithAllDependencySkipTest('sogal-auth')
                     }
                 }
             }
