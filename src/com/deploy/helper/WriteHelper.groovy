@@ -56,9 +56,10 @@ EOF
     /**
      * 替换变量
      */
-    static def replaceVariable(def body, Map map) {
-        if (map != null && body instanceof String body) {
+    static def replaceVariable(String body, Map map) {
+        if (map != null) {
             for (final def entry in map.entrySet()) {
+                //noinspection GroovyAssignabilityCheck
                 body = body.replace(body, entry.getKey(), entry.getValue())
             }
         }
