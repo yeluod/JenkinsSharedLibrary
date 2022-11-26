@@ -24,8 +24,8 @@ class Helper {
     def loadConfig() {
         if (this.config == null) {
             String yamlSource = this.script.libraryResource("${this.env}/config.yml")
-            println(JSONUtil.toJsonPrettyStr(yamlSource))
             this.config = new Yaml().loadAs(yamlSource, Config.class)
+            println(JSONUtil.toJsonPrettyStr(this.config))
         }
     }
 
