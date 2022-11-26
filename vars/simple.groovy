@@ -88,7 +88,8 @@ def call() {
                 steps {
                     script {
                         dockerHelper.build('testimages', 'dev-1.0.0')
-                        dockerHelper.tag('targetimages')
+                        dockerHelper.tag('10.72.3.123:80/ids/targetimages')
+                        dockerHelper.push()
                         dockerHelper.rmi()
                     }
                 }
