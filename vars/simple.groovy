@@ -44,55 +44,9 @@ def call() {
         }
 
         stages {
-            stage('Version') {
+            stage('test') {
                 steps {
                     script {
-                        gitHelper.version()
-                        javaHelper.version()
-                        mvnHelper.version()
-                        npmHelper.version()
-                        yarnHelper.version()
-                        dockerHelper.version()
-                    }
-                }
-            }
-            stage('CheckOut') {
-                steps {
-                    script {
-                        gitHelper.checkOut("http://10.72.3.205:3000/sogal_it_dept/sogal-ids.git", "null/dev/dev")
-                    }
-                }
-            }
-            stage('WriteSettingXml') {
-                steps {
-                    script {
-                        echo 'ship'
-                        // mvnHelper.writeSettingXml('conf/maven/setting.xml')
-                    }
-                }
-            }
-            stage('MavenPackage') {
-                steps {
-                    script {
-                        echo 'ship'
-                        //mvnHelper.packageWithAllDependencySkipTest('sogal-auth')
-                    }
-                }
-            }
-            stage('DockerBuildAndPush') {
-                steps {
-                    script {
-                        Map map = [
-                                'MODULE_PATH': 'sogal-auth'
-                        ]
-                        /*dockerHelper.writeDockerfile('templates/Springboot/Dockerfile', map)
-                        dockerHelper.writeDockerignore('templates/Springboot/.dockerignore')
-                        dockerHelper.build('testimage', 'latest')
-                        dockerHelper.tag('targetimage')
-                        dockerHelper.rmi()
-                        dockerHelper.systemPrune()
-                        println dockerHelper.isLogin('10.72.3.123:80')*/
-
                         String yamlSource = libraryResource('default/default.yml')
                         def load = yaml.load(yamlSource)
                         println load.toString()
