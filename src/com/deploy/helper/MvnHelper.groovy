@@ -1,6 +1,5 @@
 package com.deploy.helper
 
-
 import cn.hutool.core.util.StrUtil
 import com.deploy.property.Tools
 
@@ -9,7 +8,7 @@ import com.deploy.property.Tools
  *
  * @author YeLuo
  * @since 2022/11/22
- **/
+ * */
 @SuppressWarnings('unused')
 class MvnHelper extends BaseHelper {
 
@@ -121,4 +120,5 @@ class MvnHelper extends BaseHelper {
             ${this.mvn} ${CLEAN} ${DEPLOY} ${s} ${this.settingXml} ${pl} ${module} ${SKIP_TEST} ${am}
         """
     }
+
 }

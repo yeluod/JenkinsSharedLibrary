@@ -1,6 +1,7 @@
 package com.deploy.helper
 
 import cn.hutool.core.lang.Assert
+import cn.hutool.core.util.StrUtil
 import com.deploy.property.Credentials
 import com.deploy.property.Tools
 
@@ -36,7 +37,7 @@ class GitHelper extends BaseHelper {
     def checkOut(String repoUrl, String branch) {
         checkParams(repoUrl, branch)
         branch = trimBranch(branch)
-        this.script.println String.format('当前拉取分支为 -> {%s}', branch)
+        this.script.println StrUtil.format('当前拉取分支为 -> {}', branch)
         this.script.checkout([$class           : 'GitSCM',
                               gitTool          : 'Default',
                               branches         : [[name: "*/${branch}"]],

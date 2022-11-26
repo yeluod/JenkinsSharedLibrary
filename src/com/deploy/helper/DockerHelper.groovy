@@ -188,6 +188,28 @@ class DockerHelper extends BaseHelper {
         this.script.sh "${this.docker} ${PUSH} ${image}"
     }
 
+    def isLogin() {
+        def isLogin = this.script.sh 'cat ~/.docker/config.json'
+        this.script.echo isLogin
+    }
+
+    /**
+     * 登陆
+     * @param host {@link String} 仓库地址
+     * @param credentialsId {@link String} 凭证ID
+     */
+    void login(String host, String credentialsId) {
+        this.script
+                .withCredentials([this.script.usernamePassword(
+                        credentialsId: "${credentialsId}",
+                        passwordVariable: 'IMAGES_REGISTRY_USERNAME',
+                        usernameVariable: 'IMAGES_REGISTRY_PASSWORD')]) {
+                    this.script.sh """
+                        ${docker} login ${host} -u ${this.script.IMAGES_REGISTRY_USERNAME} -p ${this.script.IMAGES_REGISTRY_PASSWORD}
+                    """
+                }
+    }
+
     /**
      * 获取最终镜像
      */
