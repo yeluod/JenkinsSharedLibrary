@@ -1,7 +1,6 @@
 package com.deploy.helper
 
 import cn.hutool.core.lang.Assert
-import com.deploy.config.Config
 import com.deploy.helper.param.JavaToolParam
 
 /**
@@ -39,7 +38,12 @@ class JavaHelper extends BaseHelper {
      */
     @Override
     void version() {
-        Assert.notBlank(this.param.java, 'Java 可执行文件配置不能为空')
+        this.checkParam()
         this.script.sh "${this.param.java} --version"
+    }
+
+    void checkParam() {
+        Assert.notNull(this.script, '当前脚本不能为空')
+        Assert.notBlank(this.param.java, 'Java 可执行文件配置不能为空')
     }
 }

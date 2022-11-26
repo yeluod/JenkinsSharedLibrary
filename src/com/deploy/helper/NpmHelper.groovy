@@ -1,7 +1,4 @@
 package com.deploy.helper
-
-import com.deploy.property.Tools
-
 /**
  * NpmHelper
  *
@@ -13,17 +10,21 @@ class NpmHelper extends NodeHelper {
     /**
      * 构造函数
      */
-    NpmHelper(script, npm) {
-        super.script = script
-        super.tool = npm
+    NpmHelper(script) {
+        super(script)
     }
 
     /**
      * 构造函数
      */
-    NpmHelper(script, npm, registry) {
-        super.script = script
-        super.tool = npm
-        super.registry = registry
+    NpmHelper(script, String npm) {
+        super(script, npm)
+    }
+
+    /**
+     * 构造函数
+     */
+    NpmHelper(script, String npm, String registry) {
+        super(script, npm, registry)
     }
 }

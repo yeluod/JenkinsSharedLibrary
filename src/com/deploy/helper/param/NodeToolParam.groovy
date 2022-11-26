@@ -6,9 +6,9 @@ package com.deploy.helper.param
  * @author YeLuo
  * @since 2022/11/26
  * */
-class YarnToolParam {
+class NodeToolParam {
 
-    String yarn
+    String tool
     String registry
 
 }

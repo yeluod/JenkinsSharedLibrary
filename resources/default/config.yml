@@ -11,11 +11,11 @@ mvnToolParam:
     source: default/conf/maven/setting.xml
 
 npmToolParam:
-  npm: /usr/bin/npm
+  tool: /usr/bin/npm
   registry: https://registry.npm.taobao.org
 
 yarnToolParam:
-  yarn: /usr/bin/yarn
+  tool: /usr/bin/yarn
   registry: https://registry.npm.taobao.org
 
 dockerToolParam:

@@ -1,6 +1,6 @@
 package com.deploy.helper
 
-import cn.hutool.json.JSONUtil
+
 import com.deploy.config.Config
 import org.yaml.snakeyaml.Yaml
 
@@ -30,17 +30,38 @@ class Helper {
         }
     }
 
-    def loadJavaHelper() {
+    GitHelper loadGitHelper() {
+        this.loadConfig()
+        def helper = new GitHelper(this.script)
+        helper.param = this.config.gitToolParam
+        return helper
+    }
+
+    JavaHelper loadJavaHelper() {
         this.loadConfig()
         def helper = new JavaHelper(this.script)
         helper.param = this.config.javaToolParam
         return helper
     }
 
-    def loadGitHelper() {
+    MvnHelper loadMvnHelper() {
         this.loadConfig()
-        def helper = new GitHelper(this.script)
-        helper.param = this.config.gitToolParam
+        def helper = new MvnHelper(this.script)
+        helper.param = this.config.mvnToolParam
+        return helper
+    }
+
+    NpmHelper loadNpmHelper() {
+        this.loadConfig()
+        def helper = new NpmHelper(this.script)
+        helper.param = this.config.npmToolParam
+        return helper
+    }
+
+    YarnHelper loadYarnHelper() {
+        this.loadConfig()
+        def helper = new YarnHelper(this.script)
+        helper.param = this.config.yarnToolParam
         return helper
     }
 

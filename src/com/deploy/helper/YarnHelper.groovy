@@ -1,7 +1,4 @@
 package com.deploy.helper
-
-import com.deploy.property.Tools
-
 /**
  * NpmHelper
  *
@@ -13,17 +10,21 @@ class YarnHelper extends NodeHelper {
     /**
      * 构造函数
      */
-    YarnHelper(script, yarn) {
-        super.script = script
-        super.tool = yarn
+    YarnHelper(script) {
+        super(script)
     }
 
     /**
      * 构造函数
      */
-    YarnHelper(script, yarn, registry) {
-        super.script = script
-        super.tool = yarn
-        super.registry = registry
+    YarnHelper(script, String npm) {
+        super(script, npm)
+    }
+
+    /**
+     * 构造函数
+     */
+    YarnHelper(script, String npm, String registry) {
+        super(script, npm, registry)
     }
 }

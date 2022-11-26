@@ -17,9 +17,9 @@ class Config {
 
     MvnToolParam mvnToolParam
 
-    NpmToolParam npmToolParam
+    NodeToolParam npmToolParam
 
-    YarnToolParam yarnToolParam
+    NodeToolParam yarnToolParam
 
     DockerToolParam dockerToolParam
 

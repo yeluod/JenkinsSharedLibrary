@@ -1,8 +1,8 @@
 package com.deploy.helper
 
+import cn.hutool.core.lang.Assert
 import cn.hutool.core.util.StrUtil
-import com.deploy.config.Config
-import com.deploy.property.Tools
+import com.deploy.helper.param.MvnToolParam
 
 /**
  * MvnHelper
@@ -14,8 +14,9 @@ import com.deploy.property.Tools
 class MvnHelper extends BaseHelper {
 
     def script
-    def mvn
-    def outputSettingXmlPath
+    MvnToolParam param
+
+    String outputSettingXmlPath
 
     static def SETTING_XML_NAME = 'setting.xml'
 
@@ -48,9 +49,10 @@ class MvnHelper extends BaseHelper {
     /**
      * 构造函数
      */
-    MvnHelper(script, Config config) {
+    MvnHelper(script, String mvn, String settingSource) {
         this.script = script
-        this.mvn = config.mvn.tool
+        this.param.mvn = mvn
+        this.param.setting.source = settingSource
     }
 
     /**
@@ -58,7 +60,15 @@ class MvnHelper extends BaseHelper {
      */
     @Override
     void version() {
-        this.script.sh "${this.mvn} -v"
+        this.checkParam()
+        this.script.sh "${this.param.mvn} -v"
+    }
+
+    /**
+     * 写入 maven setting文件
+     */
+    void writeSettingXml() {
+        this.writeSettingXml(this.param.setting.source, StrUtil.DOT)
     }
 
     /**
@@ -88,6 +98,10 @@ class MvnHelper extends BaseHelper {
      * @param outputName {@link String} 输出名称
      */
     void writeSettingXml(String source, String outputPath, String outputName) {
+        Assert.notNull(this.script, '当前脚本不能为空')
+        Assert.notBlank(source, 'Mvn Setting资源文件不能为空')
+        Assert.notBlank(outputPath, 'Mvn Setting输出位置不能为空')
+        Assert.notBlank(outputPath, 'Mvn Setting输出名称不能为空')
         this.script.println '开始写入 maven setting.xml ...'
         def xmlSource = this.script.libraryResource(source)
         def writeHelper = new WriteHelper(this.script)
@@ -102,8 +116,10 @@ class MvnHelper extends BaseHelper {
      * @param module {@link String} 模块 groupId OR path
      */
     void packageWithAllDependencySkipTest(String module) {
+        checkModule(module)
+        this.checkParam()
         this.script.sh """
-            ${this.mvn} ${CLEAN} ${PACKAGE} ${s} ${this.outputSettingXmlPath} ${pl} ${module} ${SKIP_TEST} ${am}
+            ${this.param.mvn} ${CLEAN} ${PACKAGE} ${this.getMavenCommand(module)}
         """
     }
 
@@ -113,8 +129,10 @@ class MvnHelper extends BaseHelper {
      * @param module {@link String} 模块 groupId OR path
      */
     void installWithAllDependencySkipTest(String module) {
+        checkModule(module)
+        this.checkParam()
         this.script.sh """
-            ${this.mvn} ${CLEAN} ${INSTALL} ${s} ${this.outputSettingXmlPath} ${pl} ${module} ${SKIP_TEST} ${am}
+            ${this.param.mvn} ${CLEAN} ${INSTALL} ${this.getMavenCommand(module)}
         """
     }
 
@@ -124,9 +142,32 @@ class MvnHelper extends BaseHelper {
      * @param module {@link String} 模块 groupId OR path
      */
     void deployWithAllDependencySkipTest(String module) {
+        checkModule(module)
+        this.checkParam()
         this.script.sh """
-            ${this.mvn} ${CLEAN} ${DEPLOY} ${s} ${this.outputSettingXmlPath} ${pl} ${module} ${SKIP_TEST} ${am}
+            ${this.param.mvn} ${CLEAN} ${DEPLOY} ${this.getMavenCommand(module)}
         """
     }
+
+    /**
+     * 组装 maven 命令
+     */
+    def getMavenCommand(String module) {
+        String command = "${pl} ${module} ${SKIP_TEST} ${am}"
+        if (StrUtil.isNotBlank(this.outputSettingXmlPath)) {
+            command = "${command} ${s} ${this.outputSettingXmlPath}"
+        }
+        command
+    }
+
+    void checkParam() {
+        Assert.notNull(this.script, '当前脚本不能为空')
+        Assert.notBlank(this.param.mvn, 'Mvn 可执行文件配置不能为空')
+    }
+
+    static void checkModule(String module) {
+        Assert.notBlank(module, '打包模块 groupId OR path 不能为空')
+    }
+
 
 }

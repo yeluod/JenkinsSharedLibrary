@@ -9,8 +9,11 @@ def call() {
 
     /************************************************/
     def helper = new Helper(this, 'default')
-    JavaHelper javaHelper = helper.loadJavaHelper()
-    GitHelper gitHelper = helper.loadGitHelper()
+    def gitHelper = helper.loadGitHelper()
+    def javaHelper = helper.loadJavaHelper()
+    def mvnHelper = helper.loadMvnHelper()
+    def npmHelper = helper.loadNpmHelper()
+    def yarnHelper = helper.loadYarnHelper()
     /************************************************/
 
     pipeline {
@@ -41,6 +44,9 @@ def call() {
                     script {
                         javaHelper.version()
                         gitHelper.version()
+                        mvnHelper.version()
+                        npmHelper.version()
+                        yarnHelper.version()
                     }
                 }
             }
