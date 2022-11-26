@@ -15,4 +15,14 @@ class Config {
 
     GitToolParam gitToolParam
 
+    MvnToolParam mvnToolParam
+
+    NpmToolParam npmToolParam
+
+    YarnToolParam yarnToolParam
+
+    DockerToolParam dockerToolParam
+
+    KubectlToolParam kubectlToolParam
+
 }
