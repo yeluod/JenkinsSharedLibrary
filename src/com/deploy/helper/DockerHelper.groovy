@@ -1,5 +1,7 @@
 package com.deploy.helper
 
+
+import cn.hutool.core.util.StrUtil
 import com.deploy.property.Tools
 
 /**
@@ -8,6 +10,7 @@ import com.deploy.property.Tools
  * @author YeLuo
  * @since 2022/11/25
  * */
+@SuppressWarnings('unused')
 class DockerHelper extends BaseHelper {
 
     def script
@@ -16,8 +19,6 @@ class DockerHelper extends BaseHelper {
 
     static def DOCKERFILE_NAME = 'Dockerfile'
     static def DOCKER_IGNORE = '.dockerignore'
-
-    static def CURRENT_DIRECTORY = '.'
 
     static def BUILD = 'build'
     static def PUSH = 'push'
@@ -49,7 +50,7 @@ class DockerHelper extends BaseHelper {
      * @return {@link String} 输出文件路径
      */
     void writeDockerfile(String source) {
-        this.writeDockerfile(source, CURRENT_DIRECTORY)
+        this.writeDockerfile(source, StrUtil.DOT)
     }
 
     /**
@@ -83,7 +84,7 @@ class DockerHelper extends BaseHelper {
      * @return {@link String} 输出文件路径
      */
     void writeDockerfile(String source, Map map) {
-        this.writeDockerfile(source, CURRENT_DIRECTORY, DOCKERFILE_NAME, map)
+        this.writeDockerfile(source, StrUtil.DOT, DOCKERFILE_NAME, map)
     }
 
     /**
@@ -101,7 +102,7 @@ class DockerHelper extends BaseHelper {
         def writeHelper = new WriteHelper(this.script)
         writeHelper.tee(outputPath, outputName, dockerfileSource, variable)
         // 赋值 dockerfile 文件路径
-        this.dockerfilePath = outputPath + '/' + outputName
+        this.dockerfilePath = outputPath + StrUtil.SLASH + outputName
     }
 
     /**
@@ -109,7 +110,7 @@ class DockerHelper extends BaseHelper {
      * 防止 docker build时, Sending build context to Docker daemon 数据过大
      */
     void writeDockerignore(String source) {
-        this.writeDockerignore(source, CURRENT_DIRECTORY)
+        this.writeDockerignore(source, StrUtil.DOT)
     }
 
     /**

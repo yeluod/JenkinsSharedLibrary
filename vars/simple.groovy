@@ -67,15 +67,14 @@ def call() {
             stage('WriteSettingXml') {
                 steps {
                     script {
-                        mvnHelper.writeSettingXml()
+                        mvnHelper.writeSettingXml('conf/maven/setting.xml')
                     }
                 }
             }
             stage('MavenPackage') {
                 steps {
                     script {
-                        println('skip')
-                        // mvnHelper.packageWithAllDependency('sogal-auth')
+                        mvnHelper.packageWithAllDependency('sogal-auth')
                     }
                 }
             }
