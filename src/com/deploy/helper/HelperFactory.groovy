@@ -10,13 +10,13 @@ import org.yaml.snakeyaml.Yaml
  * @author YeLuo
  * @since 2022/11/26
  * */
-class Helper {
+class HelperFactory {
 
     def script
     def env
     Config config
 
-    Helper(script, env) {
+    HelperFactory(script, env) {
         this.script = script
         this.env = env
     }

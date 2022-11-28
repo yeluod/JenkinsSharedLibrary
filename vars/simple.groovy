@@ -8,7 +8,7 @@ import com.deploy.helper.*
 def call() {
 
     /************************************************/
-    def helper = new Helper(this, 'default')
+    def helper = new HelperFactory(this, 'default')
     def gitHelper = helper.loadGitHelper()
     def javaHelper = helper.loadJavaHelper()
     def mvnHelper = helper.loadMvnHelper()

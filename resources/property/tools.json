@@ -1,9 +1,0 @@
-{
-  "git": "/usr/bin/git",
-  "java": "/usr/bin/java",
-  "mvn": "/usr/bin/mvn",
-  "npm": "/usr/bin/npm",
-  "yarn": "/usr/bin/yarn",
-  "docker": "/usr/bin/docker",
-  "kubectl": "/usr/bin/kubectl"
-}
