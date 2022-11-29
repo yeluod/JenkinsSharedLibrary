@@ -68,4 +68,20 @@ EOF
         }
         body
     }
+
+    /**
+     * 写入文件
+     *
+     * @param source {@link String} 资源文件
+     * @param outputPath {@link String} 输出位置
+     * @param outputName {@link String} 输出名称
+     * @param variable {@link Map} 需要替换的变量
+     * @return {@link String} 输出文件路径
+     */
+    String writeFile(String source, String outputPath, String outputName, Map variable) {
+        def dockerfileSource = this.script.libraryResource(source)
+        def writeHelper = new WriteHelper(this.script)
+        writeHelper.tee(outputPath, outputName, dockerfileSource, variable)
+        return outputPath + StrUtil.SLASH + outputName
+    }
 }

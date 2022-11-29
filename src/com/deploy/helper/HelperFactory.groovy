@@ -73,4 +73,18 @@ class HelperFactory {
         return helper
     }
 
+    KubeCtlHelper loadKubeCtlHelper() {
+        this.loadConfig()
+        def helper = new KubeCtlHelper(this.script)
+        helper.param = this.config.kubectlToolParam
+        return helper
+    }
+
+    RobotHelper loadWechatRobot() {
+        this.loadConfig()
+        def helper = new RobotHelper(this.script)
+        helper.param = this.config.robotToolParam
+        return helper
+    }
+
 }

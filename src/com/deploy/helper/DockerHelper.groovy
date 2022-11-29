@@ -113,11 +113,8 @@ class DockerHelper extends BaseHelper {
      */
     void writeDockerfile(String source, String outputPath, String outputName, Map variable) {
         this.script.println '开始写入 Dockerfile ...'
-        def dockerfileSource = this.script.libraryResource(source)
-        def writeHelper = new WriteHelper(this.script)
-        writeHelper.tee(outputPath, outputName, dockerfileSource, variable)
         // 赋值 dockerfile 文件路径
-        this.dockerfilePath = outputPath + StrUtil.SLASH + outputName
+        this.dockerfilePath = new WriteHelper(this.script).writeFile(source, outputPath, outputName, variable)
     }
 
     /**
@@ -134,9 +131,19 @@ class DockerHelper extends BaseHelper {
      */
     void writeDockerignore(String source, String outputPath) {
         this.script.println '开始写入 .dockerignore ...'
-        def dockerIgnoreSource = this.script.libraryResource(source)
-        def writeHelper = new WriteHelper(this.script)
-        writeHelper.tee(outputPath, DOCKER_IGNORE, dockerIgnoreSource)
+        writeDockerignore(source, outputPath, DOCKER_IGNORE)
+    }
+
+    /**
+     * 写入 Dockerfile 文件
+     *
+     * @param source {@link String} 资源文件
+     * @param outputPath {@link String} 输出位置
+     * @param outputName {@link String} 输出名称
+     */
+    void writeDockerignore(String source, String outputPath, String outputName) {
+        this.script.println '开始写入 .dockerignore ...'
+        new WriteHelper(this.script).writeFile(source, outputPath, outputName, null)
     }
 
     /**
