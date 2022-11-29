@@ -25,4 +25,5 @@ class Config {
 
     KubectlToolParam kubectlToolParam
 
+    RobotToolParam robotToolParam
 }

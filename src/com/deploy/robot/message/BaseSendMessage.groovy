@@ -15,7 +15,7 @@ abstract class BaseSendMessage {
 
     abstract String getUrl()
 
-    protected boolean send(String body) {
+    boolean send(String body) {
         String res = HttpUtil.post(this.getUrl(), body, TIMEOUT)
         def jsonObject = JSONUtil.parseObj(res)
         return jsonObject.getInt('errcode') == 0

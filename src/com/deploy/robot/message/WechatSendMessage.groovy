@@ -45,22 +45,4 @@ class WechatSendMessage extends BaseSendMessage {
         ]
         return JSONUtil.toJsonStr(map)
     }
-
-    static void main(String[] args) {
-        def build = new Markdown()
-                .environment('dev')
-                .module('test')
-                .branch('dev')
-                .time('100000ms')
-                .description('description')
-                .buildUrl('https://www.baidu.com')
-                .build()
-        println JSONUtil.toJsonStr(build)
-
-        def message = markdownMessage(build)
-        println message
-
-        def send = new WechatSendMessage('123').send(message)
-        println send
-    }
 }

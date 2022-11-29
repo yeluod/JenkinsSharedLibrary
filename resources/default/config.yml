@@ -36,3 +36,6 @@ dockerToolParam:
 
 kubectlToolParam:
   kubectl: /usr/bin/kubectl
+
+robotToolParam:
+    wechatKey: 123123
