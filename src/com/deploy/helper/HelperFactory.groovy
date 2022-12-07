@@ -87,4 +87,10 @@ class HelperFactory {
         return helper
     }
 
+    WriteHelper loadWriteHelper() {
+        this.loadConfig()
+        def helper = new WriteHelper(this.script)
+        return helper
+    }
+
 }

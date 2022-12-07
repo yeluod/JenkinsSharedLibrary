@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Test
  * */
 class SimpleTests extends BasePipelineTest {
 
-    private static final def MSG = 'Hello World!!!'
-
     @Override
     @BeforeEach
     void setUp() {
@@ -22,13 +20,9 @@ class SimpleTests extends BasePipelineTest {
         super.setUp()
 
         helper.registerAllowedMethod('pipeline', [Closure.class], null)
-        helper.registerAllowedMethod('options', [Closure.class], null)
-        helper.registerAllowedMethod('timeout', [Map.class], null)
-        helper.registerAllowedMethod('timestamps', [], null)
         helper.registerAllowedMethod('agent', [Closure.class], null)
         helper.registerAllowedMethod('stages', [Closure.class], null)
         helper.registerAllowedMethod('steps', [Closure.class], null)
-        helper.registerAllowedMethod('script', [Closure.class], null)
         binding.setVariable('none', {})
         binding.setVariable('any', {})
     }
@@ -36,9 +30,7 @@ class SimpleTests extends BasePipelineTest {
     @Test
     void simpleTest() {
         def script = super.loadScript('simple.groovy')
-
-        script.call("${MSG}")
-
+        script.call()
         super.printCallStack()
         super.assertJobStatusSuccess()
     }
